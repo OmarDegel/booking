@@ -1,0 +1,33 @@
+{
+    "welcome": "Welcome to React Booking",
+    "change_language": "Change Language",
+    "theme": {
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+    },
+    "nav": {
+        "home": "Home",
+        "about": "About",
+        "contact": "Contact",
+        "trips": "Trips"
+    },
+    "login": "Log in",
+    "signup": "Sign up",
+    "home": {
+        "titleLine1": "Discover Your Next",
+        "titleLine2": "Adventure",
+        "subtitle": "Explore the world's best destinations with us.",
+        "where": "Where to?",
+        "date": "Date",
+        "budget": "Budget",
+        "search": "Search",
+        "trending": "Trending Trips",
+        "view_all": "View All Trips"
+    },
+    "trip": {
+        "save": "Save",
+        "person": "/person",
+        "reviews": "reviews"
+    }
+}
