@@ -46,7 +46,7 @@ function Header() {
           <span
             className={`${isHome ? "text-white" : "text-foreground"} font-medium`}
           >
-            Wanderlust
+            Booking
           </span>
         </Link>
 

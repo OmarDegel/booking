@@ -10,6 +10,8 @@ import Trips from "../pages/Trips";
 import TripDetails from "../pages/TripDetails";
 import ProfileLayout from "../pages/profile/ProfileLayout";
 import Favourites from "../pages/profile/Favourites";
+import Contact from "../pages/Contact";
+import About from "../pages/About";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
         element: <TripDetails />,
       },
       {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
         path: "/profile",
         element: <ProfileLayout />,
         children: [
@@ -38,7 +48,7 @@ const router = createBrowserRouter([
           {
             path: "favourites",
             element: <Favourites />,
-          }
+          },
         ],
       },
     ],

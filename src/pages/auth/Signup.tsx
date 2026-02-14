@@ -25,7 +25,7 @@ function Signup() {
 
             <h2 className="text-4xl font-bold">Start Exploring</h2>
             <p className="opacity-80 max-w-sm">
-              Join thousands of travelers discovering the world with Wanderlust.
+              Join thousands of travelers discovering the world with Booking.
             </p>
           </div>
         </div>

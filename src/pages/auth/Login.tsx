@@ -24,7 +24,7 @@ function Login() {
 
             <h2 className="text-4xl font-bold">Welcome Back</h2>
             <p className="opacity-80 max-w-sm">
-              Continue your journey with Wanderlust. Your next adventure awaits.
+              Continue your journey with Booking. Your next adventure awaits.
             </p>
           </div>
         </div>
