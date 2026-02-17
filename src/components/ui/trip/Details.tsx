@@ -1,4 +1,4 @@
-import { Calendar, CheckIcon, Clock, MapPin, Star, Tag, XIcon } from "lucide-react";
+import { Calendar, CheckIcon, Clock, MapPin, Star, Tag } from "lucide-react";
 function Details({ trip }: any) {
   return (
     <div>

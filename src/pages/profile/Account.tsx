@@ -1,5 +1,3 @@
-import { Delete, Eye, MapPin } from "lucide-react";
-import React from "react";
 import Select2 from "../../components/form/select/select2";
 
 function Account() {

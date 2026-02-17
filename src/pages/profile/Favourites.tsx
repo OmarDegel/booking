@@ -1,5 +1,4 @@
 import { Delete, Eye, MapPin } from "lucide-react";
-import React from "react";
 
 function Favourites() {
   return (

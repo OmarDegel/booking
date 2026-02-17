@@ -1,14 +1,8 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { trips } from "../data/trips";
 import Gallery from "../components/ui/trip/Gallery";
 import {
-  Calendar,
-  CheckIcon,
-  Clock,
-  MapPin,
   Star,
-  Tag,
-  XIcon,
 } from "lucide-react";
 import Aside from "../components/ui/trip/Aside";
 import { motion } from "framer-motion";

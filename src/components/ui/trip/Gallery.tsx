@@ -61,7 +61,7 @@ function Gallery({ trip }: any) {
               </div>
               {/* Thumbnails */}
               <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-y-auto lg:w-24 lg:max-h-[400px]">
-                {trip.images.map((img, i) => (
+                {trip.images.map((img :any, i:any) => (
                   <button
                     key={i}
                     onClick={() => setActiveImage(i)}
