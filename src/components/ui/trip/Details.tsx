@@ -57,21 +57,6 @@ function Details({ trip }: any) {
           </div>
         </div>
       </div>
-      <div className="mt-8">
-        <h2 className="text-xl font-semibold text-foreground mb-4">
-          Trip DrawBack
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-">
-          <div className="flex items-center gap-3 bg-accent/50 rounded-xl p-4">
-            <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center shrink-0">
-              <XIcon className="w-4 h-4 text-red-600" />
-            </div>
-            <span className="text-foreground font-medium">
-              Eiffel Tower private dinner
-            </span>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

@@ -46,11 +46,11 @@ function Contact() {
             <form className="space-y-7">
               <div>
                 <label className="block text-base font-semibold text-left mb-2">
-                  Name
+                  Phone Number
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter your name"
+                  placeholder="Enter your phone number"
                   className="w-full h-[64px] rounded-2xl border border-input bg-background px-6 text-base focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>

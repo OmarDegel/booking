@@ -12,6 +12,7 @@ import ProfileLayout from "../pages/profile/ProfileLayout";
 import Favourites from "../pages/profile/Favourites";
 import Contact from "../pages/Contact";
 import About from "../pages/About";
+import Account from "../pages/profile/Account";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <div>hi</div>,
+            element: <Account />,
           },
           {
             path: "favourites",

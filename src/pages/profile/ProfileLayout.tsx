@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { Heart } from "lucide-react";
+import { Heart, User } from "lucide-react";
 
 export default function ProfileLayout() {
   const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -29,6 +29,10 @@ export default function ProfileLayout() {
               <NavLink to="/profile/favourites" className={linkClass}>
                 <Heart className="w-5 h-5" />
                 <span>Favourites</span>
+              </NavLink>
+              <NavLink to="/profile" end className={linkClass}>
+                <User className="w-5 h-5" />
+                <span>Account Settings</span>
               </NavLink>
             </nav>
           </div>

@@ -17,6 +17,7 @@ function Header() {
     { name: t("nav.about"), path: "/about" },
     { name: t("nav.contact"), path: "/contact" },
     { name: t("nav.trips"), path: "/trips" },
+    { name: t("nav.profile"), path: "/profile" },
   ];
 
   return (

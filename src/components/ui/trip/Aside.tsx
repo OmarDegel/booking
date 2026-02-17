@@ -1,4 +1,5 @@
 import { Calendar, Heart, Share } from "lucide-react";
+import { BsWhatsapp } from "react-icons/bs";
 function Aside({ trip }: any) {
   return (
     <aside className="lg:w-1/3 w-full  top-20">
@@ -22,13 +23,13 @@ function Aside({ trip }: any) {
               <p className="text-sm">{trip.startDate}</p>
             </div>
           </div>
-          <div className="bg-secondary rounded-2xl flex gap-3 items-center p-3">
+          {/* <div className="bg-secondary rounded-2xl flex gap-3 items-center p-3">
             <Calendar className="h-5 w-5" />
             <div>
               <p className="text-gray-400 text-[.75rem]">Group Size</p>
               <p className="text-sm">10</p>
             </div>
-          </div>
+          </div> */}
           <div className="bg-secondary rounded-2xl flex gap-3 items-center p-3">
             <Calendar className="h-5 w-5" />
             <div>
@@ -37,9 +38,23 @@ function Aside({ trip }: any) {
             </div>
           </div>
         </div>
-        <button className="bg-primary text-white px-4 py-3 rounded-2xl font-medium w-full mt-4 hover:bg-primary/80 cursor-pointer">
-          Book Now
-        </button>
+
+        <a
+          href={`https://wa.me/201019631989?text=${encodeURIComponent(
+            `Hello, I would like to book this trip:
+Trip: ${trip.title}
+Date: ${trip.date}`,
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block"
+        >
+          <button className="bg-green-600 text-white px-4 py-3 rounded-2xl font-medium w-full mt-4 hover:bg-green-600/80 cursor-pointer flex items-center justify-center gap-2">
+            <BsWhatsapp className="h-5 w-5" />
+            <span>Book Now</span>
+          </button>
+        </a>
+
         <div className="flex gap-2 mt-4">
           <button className="flex-1 bg-primary text-white px-4 py-3 rounded-2xl font-medium flex items-center justify-center gap-2 hover:bg-primary/80 cursor-pointer">
             <Heart className="h-5 w-5" />

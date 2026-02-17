@@ -9,6 +9,8 @@
   
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+
+  --color-gradient-cta : #1CAD51;
   
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
