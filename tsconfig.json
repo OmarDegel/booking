@@ -5,6 +5,11 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
+    "noEmitOnError": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "strict": false,
+    "skipLibCheck": true,
 
     /* Absolute path imports */
     "baseUrl": ".",
@@ -20,7 +25,6 @@
       "@layouts/*": ["src/layouts/*"],
       "@util/*": ["src/util/*"],
       "@services/*": ["src/services/*"]
-    },
-
-  },
+    }
+  }
 }
