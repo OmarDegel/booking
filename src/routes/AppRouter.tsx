@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "../pages/MainLayout";
 import Home from "../pages/Home";
-import Login from "../pages/auth/Login";
-import Signup from "../pages/auth/Signup";
+import Login ,{ action as loginAction} from "../pages/auth/Login";
+import Signup, { action as signupAction } from "../pages/auth/Signup";
 import ForgetPassword from "../pages/auth/ForgetPassword";
 import OtpPage from "../pages/auth/Otp";
 import ResetPassword from "../pages/auth/ResetPassword";
@@ -12,7 +12,10 @@ import ProfileLayout from "../pages/profile/ProfileLayout";
 import Favourites from "../pages/profile/Favourites";
 import Contact from "../pages/Contact";
 import About from "../pages/About";
-import Account from "../pages/profile/Account";
+import Account, { action as accountAction , loader as accountLoader}   from "../pages/profile/Account";
+import CheckRegister, {
+  action as checkRegisterAction,
+} from "../pages/auth/CheckRegister";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,6 +48,9 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Account />,
+            loader: accountLoader,
+            action: accountAction
+
           },
           {
             path: "favourites",
@@ -58,10 +64,17 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    action: loginAction,
   },
   {
     path: "/signup",
     element: <Signup />,
+    action: signupAction,
+  },
+  {
+    path: "/check-email",
+    element: <CheckRegister />,
+    action: checkRegisterAction,
   },
   {
     path: "/forget-password",

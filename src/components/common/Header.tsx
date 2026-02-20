@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Menu, X } from "lucide-react";
+import CheckAuth from "../ui/CheckAuth";
 
 function Header() {
   const { pathname } = useLocation();
@@ -17,16 +18,15 @@ function Header() {
     { name: t("nav.about"), path: "/about" },
     { name: t("nav.contact"), path: "/contact" },
     { name: t("nav.trips"), path: "/trips" },
-    { name: t("nav.profile"), path: "/profile" },
   ];
-
   return (
     <header
       className={`top-0 left-0 w-full z-50 transition-all duration-300 
-      ${isHome
+      ${
+        isHome
           ? "fixed bg-transparent border-b-0"
           : "relative bg-background border-b border-border"
-        }`}
+      }`}
     >
       <div className="flex justify-between items-center container mx-auto px-4 lg:px-20 py-4">
         <Link to="/" className="flex items-center gap-2 text-xl font-bold">
@@ -51,11 +51,11 @@ function Header() {
           </span>
         </Link>
 
-        {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6">
           <ul
-            className={`flex items-center gap-6 text-sm font-medium ${isHome ? "text-white" : "text-foreground"
-              }`}
+            className={`flex items-center gap-6 text-sm font-medium ${
+              isHome ? "text-white" : "text-foreground"
+            }`}
           >
             {navItems.map((item) => (
               <li key={item.path}>
@@ -73,27 +73,8 @@ function Header() {
             <LanguageSwitcher />
           </div>
 
-          <div className="flex items-center gap-4 ms-4">
-            <Link to="/login">
-              <button
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors
-                ${isHome
-                    ? "text-white hover:bg-white/10"
-                    : "text-foreground hover:bg-muted"
-                  }`}
-              >
-                {t("auth:login")}
-              </button>
-            </Link>
-            <Link to="/register">
-              <button className="px-4 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground shadow-md hover:bg-primary/90 transition-colors">
-                {t("auth:signup")}
-              </button>
-            </Link>
-          </div>
+          <CheckAuth isHome={isHome} />
         </div>
-
-        {/* Mobile Menu Button */}
         <button
           className={`md:hidden p-2 ${isHome ? "text-white" : "text-foreground"}`}
           onClick={toggleMenu}
@@ -103,7 +84,6 @@ function Header() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-background border-t border-border absolute w-full left-0 animate-in slide-in-from-top-2">
           <ul className="flex flex-col gap-4 px-4 py-6">
@@ -120,10 +100,14 @@ function Header() {
             ))}
 
             <li className="flex items-center justify-between py-2 border-t border-border mt-2">
-              <span className="text-sm font-medium text-muted-foreground">{t('common:theme.system')}</span>
+              <span className="text-sm font-medium text-muted-foreground">
+                {t("common:theme.system")}
+              </span>
             </li>
             <li className="flex items-center justify-between py-2 border-b border-border mb-2">
-              <span className="text-sm font-medium text-muted-foreground">{t('common:change_language')}</span>
+              <span className="text-sm font-medium text-muted-foreground">
+                {t("common:change_language")}
+              </span>
               <LanguageSwitcher />
             </li>
 

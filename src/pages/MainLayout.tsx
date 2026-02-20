@@ -1,12 +1,21 @@
 import { BsWhatsapp } from "react-icons/bs";
 import { Footer, Header } from "../components/common";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 
 function MainLayout() {
+  const navigation = useNavigation();
+  const isLoading =
+    navigation.state === "loading" || navigation.state === "submitting";
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 relative">
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white/50 z-50">
+            <div className="w-12 h-12 border-4 border-t-primary border-gray-300 rounded-full animate-spin"></div>
+          </div>
+        )}
         <Outlet />
       </main>
       <Footer />

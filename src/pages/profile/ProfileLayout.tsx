@@ -1,5 +1,13 @@
-import { NavLink, Outlet } from "react-router-dom";
-import { Heart, User } from "lucide-react";
+import {
+  Navigate,
+  NavLink,
+  Outlet,
+  redirect,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
+import { Heart, LogOut, User } from "lucide-react";
+import { clearAuth, getUser } from "../../util/auth";
 
 export default function ProfileLayout() {
   const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -9,10 +17,18 @@ export default function ProfileLayout() {
          ? "bg-primary/20 text-primary"
          : "text-gray-700 hover:bg-primary/20 hover:text-primary"
      }`;
-
+  const navigate = useNavigate();
+  const user = getUser();
+  const navigation = useNavigation();
+  const isLoading =
+    navigation.state === "loading" || navigation.state === "submitting";
+  function handleLogout() {
+    clearAuth();
+    navigate("/");
+  }
   return (
     <div className="flex flex-col bg-secondary min-h-screen">
-      <div className="container mx-auto py-10 flex flex-col lg:flex-row gap-10  px-4 lg:px-20 ">
+      <div className="container mx-auto py-10 flex flex-col lg:flex-row gap-10 px-4 lg:px-20">
         <aside className="lg:w-1/4 w-full">
           <div className="bg-white rounded-2xl shadow-md p-5">
             <div className="text-center mb-6">
@@ -20,7 +36,7 @@ export default function ProfileLayout() {
                 JD
               </div>
               <h2 className="text-xl font-semibold text-foreground">
-                John Doe
+                {user.name}
               </h2>
               <p className="text-gray-500 text-sm">Profile</p>
             </div>
@@ -34,11 +50,23 @@ export default function ProfileLayout() {
                 <User className="w-5 h-5" />
                 <span>Account Settings</span>
               </NavLink>
+              <button
+                className="flex items-center gap-2 px-4 py-3 rounded-lg bg-red-300 text-white w-full hover:bg-red-400"
+                onClick={handleLogout}
+              >
+                <LogOut className="w-5 h-5" />
+                <span>Logout</span>
+              </button>
             </nav>
           </div>
         </aside>
 
-        <main className="lg:w-3/4 w-full">
+        <main className="lg:w-3/4 w-full relative">
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white/50 z-50">
+              <div className="w-12 h-12 border-4 border-t-primary border-gray-300 rounded-full animate-spin"></div>
+            </div>
+          )}
           <Outlet />
         </main>
       </div>
