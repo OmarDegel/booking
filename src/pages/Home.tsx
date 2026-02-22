@@ -1,17 +1,17 @@
 import { useTranslation } from "react-i18next";
-import { trips } from "../data/trips";
-import TripCard from "../components/ui/TripCard";
-import { Link } from "react-router-dom";
+import { Form, Link, useLoaderData } from "react-router-dom";
+import CategorySlider from "../components/project/CategorySlider";
+import travelImage from "../assets/images/travel.png";
+import Trips from "../components/project/Trips";
 
 function Home() {
   const { t } = useTranslation();
-  const featuredTrips = trips.filter((t) => t.featured);
-
+  const data: any = useLoaderData();
   return (
     <>
       <section
         className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-cover bg-center"
-        style={{ backgroundImage: "url('/src/assets/images/travel.png')" }}
+        style={{ backgroundImage: `url(${travelImage})` }}
       >
         <div className="absolute inset-0 bg-black/30" />
         <div className="relative z-10 text-center px-4 max-w-5xl w-full">
@@ -26,65 +26,55 @@ function Home() {
           </p>
 
           <div className="max-w-4xl mx-auto bg-card/95 backdrop-blur-md rounded-2xl p-4 md:p-6 shadow-xl border border-border">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+            <Form className="grid grid-cols-1 md:grid-cols-4 gap-3" method="get" action="/trips">
               <input
                 className="w-full h-12 rounded-md border border-input bg-background px-4 text-sm focus:outline-none focus:ring-2 focus:ring-ring placeholder:text-muted-foreground text-foreground"
                 placeholder={t("common:home.where")}
+                name="search"
               />
 
               <input
-                type="date"
+                type="min_price"
+                name="min_price"
+                placeholder={t("common:home.minPrice")}
                 className="w-full h-12 rounded-md border border-input bg-background px-4 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground"
               />
 
               <input
                 className="w-full h-12 rounded-md border border-input bg-background px-4 text-sm focus:outline-none focus:ring-2 focus:ring-ring placeholder:text-muted-foreground text-foreground"
-                placeholder={t("common:home.budget")}
+                placeholder={t("common:home.maxPrice")}
+                name="max_price"
               />
-
-              <Link to="/trips">
-                <button className="w-full h-12 rounded-md bg-primary text-primary-foreground text-sm font-medium shadow-md hover:opacity-90 transition">
-                  {t("common:home.search")}
-                </button>
-              </Link>
-            </div>
+              <button
+                type="submit"
+                className="w-full h-12 rounded-md bg-primary text-primary-foreground text-sm font-medium shadow-md hover:opacity-90 transition"
+              >
+                {t("common:home.search")}
+              </button>
+            </Form>
           </div>
         </div>
       </section>
       <section className="py-20 container mx-auto px-4 lg:px-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-            {t("common:home.trending")}
+            {t("common:home.categories")}
           </h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredTrips.map((trip, i) => (
-            <TripCard key={trip.id} trip={trip} index={i} />
-          ))}
-        </div>
-        <div className="mt-10 flex justify-center">
-          <Link to="/trips">
-            <button className="px-[30px] py-2 rounded-md text-sm font-medium transition text-foreground border border-border hover:bg-muted flex items-center gap-2">
-              {t("common:home.view_all")}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-arrow-right h-4 w-4 rtl:rotate-180"
-              >
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
-              </svg>
-            </button>
-          </Link>
-        </div>
+        <CategorySlider categories={data.categories} />
       </section>
+      {data.newTrips.length > 0 && (
+        <Trips trips={data.newTrips} title="newTrips" />
+      )}
+      {data.newTrips.length > 0 && (
+        <Trips trips={data.recommendedTrips} title="recommendedTrips" />
+      )}
+      {data.newTrips.length > 0 && (
+        <Trips trips={data.featureTrips} title="featureTrips" />
+      )}
+      {data.newTrips.length > 0 && (
+        <Trips trips={data.offerTrips} title="offerTrips" />
+      )}
     </>
   );
 }

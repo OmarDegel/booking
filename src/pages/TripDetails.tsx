@@ -1,9 +1,7 @@
-import { useParams} from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import { trips } from "../data/trips";
 import Gallery from "../components/ui/trip/Gallery";
-import {
-  Star,
-} from "lucide-react";
+import { Star } from "lucide-react";
 import Aside from "../components/ui/trip/Aside";
 import { motion } from "framer-motion";
 import Details from "../components/ui/trip/Details";
@@ -29,13 +27,8 @@ const reviewsData = [
   },
 ];
 function TripDetails() {
-  const { id } = useParams();
-  const trip = trips.find((t) => t.id === id);
-  if (!trip) {
-    return (
-      <div className="pt-20 text-center text-red-500">Trip not found.</div>
-    );
-  }
+
+  const trip = useLoaderData();
   return (
     <div className="">
       <Gallery trip={trip} />
@@ -44,14 +37,14 @@ function TripDetails() {
           <div className="flex flex-col lg:flex-row gap-6">
             <div className="flex-1 flex flex-col">
               <Details trip={trip} />
-              <div>
+              {/* <div>
                 <h2 className="text-xl font-semibold text-foreground mb-4">
                   Reviews & Ratings
                 </h2>
                 <div className="flex items-center gap-4 mb-6 bg-white rounded-2xl p-6 shadow-sm">
                   <div className="text-center">
                     <p className="text-4xl font-bold text-foreground">
-                      {trip.rating}
+                      {trip.rating.rate}
                     </p>
                     <div className="flex gap-0.5 mt-1">
                       {Array.from({ length: 5 }).map((_, i) => (
@@ -103,9 +96,7 @@ function TripDetails() {
                             <p className="text-sm font-semibold text-foreground">
                               {r.name}
                             </p>
-                            <p className="text-xs text-gray-400">
-                              {r.date}
-                            </p>
+                            <p className="text-xs text-gray-400">{r.date}</p>
                           </div>
                         </div>
                         <div className="flex gap-0.5">
@@ -121,7 +112,7 @@ function TripDetails() {
                     </motion.div>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <Aside trip={trip} />

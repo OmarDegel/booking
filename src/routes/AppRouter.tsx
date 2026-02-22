@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "../pages/MainLayout";
 import Home from "../pages/Home";
-import Login ,{ action as loginAction} from "../pages/auth/Login";
+import Login, { action as loginAction } from "../pages/auth/Login";
 import Signup, { action as signupAction } from "../pages/auth/Signup";
 import ForgetPassword from "../pages/auth/ForgetPassword";
 import OtpPage from "../pages/auth/Otp";
@@ -12,10 +12,16 @@ import ProfileLayout from "../pages/profile/ProfileLayout";
 import Favourites from "../pages/profile/Favourites";
 import Contact from "../pages/Contact";
 import About from "../pages/About";
-import Account, { action as accountAction , loader as accountLoader}   from "../pages/profile/Account";
+import Account, {
+  action as accountAction,
+  loader as accountLoader,
+} from "../pages/profile/Account";
 import CheckRegister, {
   action as checkRegisterAction,
 } from "../pages/auth/CheckRegister";
+import HomeLoader from "../loaders/HomeLoader";
+import TripsLoader from "../loaders/TripsLoader";
+import TripLoader from "../loaders/TripLoader";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,14 +30,17 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: HomeLoader,
       },
       {
         path: "/trips",
         element: <Trips />,
+        loader: TripsLoader,
       },
       {
-        path: "/trips/:id",
+        path: "/trips/:link",
         element: <TripDetails />,
+        loader: TripLoader,
       },
       {
         path: "/contact",
@@ -49,8 +58,7 @@ const router = createBrowserRouter([
             index: true,
             element: <Account />,
             loader: accountLoader,
-            action: accountAction
-
+            action: accountAction,
           },
           {
             path: "favourites",

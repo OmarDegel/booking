@@ -66,7 +66,6 @@ export async function action({ request }: { request: Request }) {
       password_confirmation,
       code,
     });
-    console.log(response.data);
     if (response.data.success) {
       setAuth({
         token: response.data.data.authorisation.token,

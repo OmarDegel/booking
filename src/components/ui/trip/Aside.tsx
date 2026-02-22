@@ -34,7 +34,7 @@ function Aside({ trip }: any) {
             <Calendar className="h-5 w-5" />
             <div>
               <p className="text-gray-400 text-[.75rem]">Raiting</p>
-              <p className="text-sm">{trip.rating}</p>
+              <p className="text-sm">{trip.rating.rate}</p>
             </div>
           </div>
         </div>
@@ -42,8 +42,8 @@ function Aside({ trip }: any) {
         <a
           href={`https://wa.me/201019631989?text=${encodeURIComponent(
             `Hello, I would like to book this trip:
-Trip: ${trip.title}
-Date: ${trip.date}`,
+              Trip: ${trip.title}
+              Date: ${trip.date}`,
           )}`}
           target="_blank"
           rel="noopener noreferrer"
