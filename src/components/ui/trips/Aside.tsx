@@ -1,9 +1,9 @@
 import { useState } from "react";
 import CheckBox from "./CheckBox";
 import { Form, useSearchParams } from "react-router-dom";
-function Aside({ categories, cities }: any) {
+import SingleCheckBox from "../SingleCheckBox";
+function Aside({ categories, cities, loading }: any) {
   const [showFilters, setShowFilters] = useState(false);
-
   const handleShowFilters = () => setShowFilters(!showFilters);
   const [searchParams] = useSearchParams();
   return (
@@ -41,12 +41,33 @@ function Aside({ categories, cities }: any) {
 
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Categories</h4>
-              <CheckBox records={categories} name="category_id[]" />
+              {loading ? (
+                <div className="flex justify-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                </div>
+              ) : (
+                <CheckBox records={categories} name="category_id[]" />
+              )}
             </div>
 
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Cities</h4>
-              <CheckBox records={cities} name="city_id[]" />
+              {loading ? (
+                <div className="flex justify-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                </div>
+              ) : (
+                <CheckBox records={cities} name="city_id[]" />
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <h4 className="text-sm font-medium">Another Options</h4>
+
+              <SingleCheckBox name="is_offer" label="Offer" />
+              <SingleCheckBox name="is_feature" label="Featured" />
+              <SingleCheckBox name="is_new" label="New" />
+              <SingleCheckBox name="is_recommend" label="Recommended" />
             </div>
 
             <div className="space-y-2">

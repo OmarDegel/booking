@@ -1,35 +1,57 @@
-import { Form } from "react-router-dom";
-import type { TActionData } from "../../../types";
+import { toast } from "react-toastify";
 import Text from "../inputs/Text";
+import { useState } from "react";
+import axios from "axios";
 
 type CheckEmailProps = {
-  data: TActionData;
-  isSubmitting: boolean;
+  email: string;
+  setEmail: (val: string) => void;
+  btnColor: string;
+  setStep: any;
+  url: string;
 };
 
-function CheckEmail({ data, isSubmitting }: CheckEmailProps) {
+function CheckEmail({ email, setEmail, btnColor, setStep, url }: CheckEmailProps) {
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<any>({});
+  const handleSendOtp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrors({});
+    try {
+      const response = await axios.post(`auth/${url}`, { email });
+      if (response.data.success) {
+        toast.success(response.data.message || "OTP sent to your email");
+        setStep("OTP");
+      }
+    } catch (error: any) {
+      const errorData = error.response?.data;
+      if (errorData?.errors) {
+        setErrors(errorData.errors);
+      }
+      toast.error(errorData?.message || "Failed to send OTP");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-    <Form method="post" className="space-y-5">
-      {data && !data.success && data.message && !data.errors && (
-        <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-md px-4 py-3">
-          {data.message}
-        </div>
-      )}
-
+    <form onSubmit={handleSendOtp} className="space-y-4">
       <Text
         label="Email Address"
         name="email"
-        error={data?.errors?.email?.[0]}
+        type="email"
+        value={email}
+        onChange={(val) => setEmail(val)}
+        error={errors.email?.[0]}
       />
-
       <button
         type="submit"
-        className="w-full h-12 bg-gradient-cta text-white rounded-md font-semibold cursor-pointer hover:opacity-80 transition"
-        disabled={isSubmitting}
+        disabled={loading}
+        className={`w-full h-11 ${btnColor} text-white rounded-md font-semibold cursor-pointer hover:opacity-80 transition`}
       >
-        {isSubmitting ? "Checking email..." : "Check Email"}
+        {loading ? "Sending..." : "Send OTP"}
       </button>
-    </Form>
+    </form>
   );
 }
 

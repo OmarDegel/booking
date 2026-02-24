@@ -1,37 +1,17 @@
 import { useLoaderData, useParams } from "react-router-dom";
-import { trips } from "../data/trips";
 import Gallery from "../components/ui/trip/Gallery";
-import { Star } from "lucide-react";
 import Aside from "../components/ui/trip/Aside";
-import { motion } from "framer-motion";
 import Details from "../components/ui/trip/Details";
 
-const reviewsData = [
-  {
-    name: "Sarah M.",
-    rating: 5,
-    date: "March 2026",
-    text: "An absolutely incredible experience! Everything was perfectly organized and the views were breathtaking.",
-  },
-  {
-    name: "James K.",
-    rating: 5,
-    date: "February 2026",
-    text: "Best trip I've ever been on. The attention to detail was remarkable. Highly recommend!",
-  },
-  {
-    name: "Emily R.",
-    rating: 4,
-    date: "January 2026",
-    text: "Wonderful experience overall. The accommodations were luxurious and the guides were knowledgeable.",
-  },
-];
-function TripDetails() {
 
+function TripDetails() {
   const trip = useLoaderData();
   return (
     <div className="">
-      <Gallery trip={trip} />
+      {trip.images.length > 0 && (
+        
+        <Gallery trip={trip} />
+      )}
       <div className="bg-secondary pt-5">
         <div className="container mx-auto px-4 lg:px-20 py-4">
           <div className="flex flex-col lg:flex-row gap-6">

@@ -2,13 +2,15 @@ import axios from "axios";
 
 export default async function TripLoader({ params }: { params: any }) {
   const link = params.link;
-  console.log(link);
   try {
     const res = await axios.get(`trips/${link}`);
     if (res.data.success === true) {
       return res.data.data;
     }
-    return res.data;
+    throw new Response(res.data.message || "Unknown error", {
+      status: 404,
+      statusText: res.data.message || "Trip not found",
+    });
   } catch (error: any) {
     if (error.response?.data) {
       return error.response.data;

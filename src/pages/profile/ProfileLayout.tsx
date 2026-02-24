@@ -8,8 +8,14 @@ import {
 } from "react-router-dom";
 import { Heart, LogOut, User } from "lucide-react";
 import { clearAuth, getUser } from "../../util/auth";
+import { useAppDispatch } from "../../store/hook";
+import { clearWishlist } from "../../store/wishlists/wishlistsSlice";
 
 export default function ProfileLayout() {
+  const user = getUser();
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `flex items-center gap-2 px-4 py-3 rounded-lg transition-colors
      ${
@@ -18,12 +24,13 @@ export default function ProfileLayout() {
          : "text-gray-700 hover:bg-primary/20 hover:text-primary"
      }`;
   const navigate = useNavigate();
-  const user = getUser();
   const navigation = useNavigation();
   const isLoading =
     navigation.state === "loading" || navigation.state === "submitting";
+  const dispatch = useAppDispatch();
   function handleLogout() {
     clearAuth();
+    dispatch(clearWishlist());
     navigate("/");
   }
   return (
@@ -36,7 +43,7 @@ export default function ProfileLayout() {
                 JD
               </div>
               <h2 className="text-xl font-semibold text-foreground">
-                {user.name}
+                {user?.name}
               </h2>
               <p className="text-gray-500 text-sm">Profile</p>
             </div>

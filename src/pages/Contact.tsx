@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function Contact() {
   const [socialIcons, setSocialIcons] = useState([
@@ -8,6 +10,45 @@ function Contact() {
     "twitter",
     "instagram",
   ]);
+  const [phone, setPhone] = useState("");
+  const [content, setContent] = useState("");
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!phone) {
+      toast.error("Phone number is required");
+      return;
+    }
+    if (!content) {
+      toast.error("Message is required");
+      return;
+    }
+    if (!email) {
+      toast.error("Email is required");
+      return;
+    }
+    setLoading(true);
+    axios
+      .post("contact", { phone, email })
+      .then((res) => {
+        if (res.data.success) {
+          toast.success(res.data.message);
+        } else {
+          toast.error(res.data.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err.response?.data?.message || "Something went wrong");
+      })
+      .finally(() => {
+        setLoading(false);
+        setPhone("");
+        setContent("");
+        setEmail("");
+      });
+  };
   return (
     <div className=" text-center bg-secondary min-h-screen ">
       <div className="container mx-auto px-4 lg:px-20 py-16">
@@ -40,18 +81,24 @@ function Contact() {
           </ul>
         </div>
 
-        {/* FORM */}
         <div className="flex justify-center pb-24">
           <div className="bg-background p-14 rounded-3xl shadow-xl w-full max-w-3xl">
-            <form className="space-y-7">
+            <form
+              className="space-y-7"
+              onSubmit={(e) => {
+                handleSubmit(e);
+              }}
+            >
               <div>
                 <label className="block text-base font-semibold text-left mb-2">
                   Phone Number
                 </label>
                 <input
                   type="text"
+                  value={phone}
                   placeholder="Enter your phone number"
                   className="w-full h-[64px] rounded-2xl border border-input bg-background px-6 text-base focus:outline-none focus:ring-2 focus:ring-primary"
+                  onChange={(val) => setPhone(val.target.value)}
                 />
               </div>
 
@@ -61,8 +108,10 @@ function Contact() {
                 </label>
                 <input
                   type="email"
+                  value={email}
                   placeholder="Enter your email"
                   className="w-full h-[64px] rounded-2xl border border-input bg-background px-6 text-base focus:outline-none focus:ring-2 focus:ring-primary"
+                  onChange={(val) => setEmail(val.target.value)}
                 />
               </div>
 
@@ -71,17 +120,20 @@ function Contact() {
                   Message
                 </label>
                 <textarea
+                  value={content}
                   placeholder="Write your message..."
                   className="w-full h-[180px] resize-none rounded-2xl border border-input bg-background px-6 py-4 text-base focus:outline-none focus:ring-2 focus:ring-primary"
+                  onChange={(val) => setContent(val.target.value)}
                 />
               </div>
 
               <div className="text-right pt-6">
                 <button
                   type="submit"
+                  disabled={loading}
                   className="bg-primary text-white px-10 py-4 rounded-2xl text-lg font-semibold hover:opacity-90 transition"
                 >
-                  Send Message
+                  {loading ? "Sending..." : "Send Message"}
                 </button>
               </div>
             </form>

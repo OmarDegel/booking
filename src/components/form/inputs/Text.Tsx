@@ -7,6 +7,7 @@ type TextProps = {
   type?: string;
   readOnly?: boolean;
   error?: string;
+  placeholder?: string;
 };
 
 export default function Text({
@@ -18,7 +19,10 @@ export default function Text({
   type,
   readOnly,
   error,
+  placeholder,
 }: TextProps) {
+  const isControlled = onChange !== undefined;
+
   return (
     <div className="relative">
       <label htmlFor={name} className="block font-medium mb-1 text-sm">
@@ -28,17 +32,17 @@ export default function Text({
         id={name}
         name={name}
         type={type || "text"}
-        defaultValue={value}
-        {...(onChange !== undefined
-          ? { value: value ?? "", onChange: (e) => onChange(e.target.value) }
+        {...(isControlled
+          ? { value: value ?? "" }
           : { defaultValue: defaultValue ?? "" })}
+        onChange={isControlled ? (e) => onChange(e.target.value) : undefined}
         readOnly={readOnly}
-        placeholder={`Enter your ${label.toLowerCase()}`}
+        placeholder={placeholder || `Enter your ${label.toLowerCase()}`}
         className={`w-full h-11 px-3 border rounded-md text-sm transition ${error
-            ? "border-red-400 focus:outline-none focus:ring-1 focus:ring-red-400"
-            : readOnly
-              ? "bg-gray-100 cursor-not-allowed border-gray-300"
-              : "border-gray-300 focus:outline-none focus:ring-1 focus:ring-indigo-400"
+          ? "border-red-400 focus:outline-none focus:ring-1 focus:ring-red-400"
+          : readOnly
+            ? "bg-gray-100 cursor-not-allowed border-gray-300"
+            : "border-gray-300 focus:outline-none focus:ring-1 focus:ring-indigo-400"
           }`}
       />
       {error && (

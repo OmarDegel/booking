@@ -2,9 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "../pages/MainLayout";
 import Home from "../pages/Home";
 import Login, { action as loginAction } from "../pages/auth/Login";
-import Signup, { action as signupAction } from "../pages/auth/Signup";
-import ForgetPassword from "../pages/auth/ForgetPassword";
-import OtpPage from "../pages/auth/Otp";
+import Signup from "../pages/auth/Signup";
 import ResetPassword from "../pages/auth/ResetPassword";
 import Trips from "../pages/Trips";
 import TripDetails from "../pages/TripDetails";
@@ -16,26 +14,24 @@ import Account, {
   action as accountAction,
   loader as accountLoader,
 } from "../pages/profile/Account";
-import CheckRegister, {
-  action as checkRegisterAction,
-} from "../pages/auth/CheckRegister";
-import HomeLoader from "../loaders/HomeLoader";
-import TripsLoader from "../loaders/TripsLoader";
+
 import TripLoader from "../loaders/TripLoader";
+import WishlistLoader from "../loaders/WishlistLoader";
+import { Error } from "../pages/Error";
+import AuthMiddleware from "../pages/middleware/AuthMiddleware";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
         element: <Home />,
-        loader: HomeLoader,
       },
       {
         path: "/trips",
         element: <Trips />,
-        loader: TripsLoader,
       },
       {
         path: "/trips/:link",
@@ -63,38 +59,30 @@ const router = createBrowserRouter([
           {
             path: "favourites",
             element: <Favourites />,
+            loader: WishlistLoader,
           },
         ],
       },
     ],
   },
+  {
+    element: <AuthMiddleware />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+        action: loginAction,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
 
-  {
-    path: "/login",
-    element: <Login />,
-    action: loginAction,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
-    action: signupAction,
-  },
-  {
-    path: "/check-email",
-    element: <CheckRegister />,
-    action: checkRegisterAction,
-  },
-  {
-    path: "/forget-password",
-    element: <ForgetPassword />,
-  },
-  {
-    path: "/otp",
-    element: <OtpPage />,
-  },
-  {
-    path: "/reset-password",
-    element: <ResetPassword />,
+      {
+        path: "/reset-password",
+        element: <ResetPassword />,
+      }
+    ],
   },
 ]);
 const AppRouter = () => {

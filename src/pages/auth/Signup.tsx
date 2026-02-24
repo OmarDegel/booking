@@ -1,21 +1,22 @@
-import "../../server/axios.global";
-import axios from "axios";
-import {
-  Link,
-  redirect,
-  useActionData,
-  useNavigate,
-  useNavigation,
-} from "react-router-dom";
-import SignupForm from "../../components/form/auth/SignupForm";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import Content from "../../components/ui/auth/Content";
-import { setAuth } from "../../util/auth";
+import CheckEmail from "../../components/form/auth/CheckEmail";
+import Otp from "../../components/form/auth/Otp";
+import Register from "../../components/form/auth/Register";
+
+type Step = "EMAIL" | "OTP" | "REGISTER";
 
 function Signup() {
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
-  const data = useActionData();
-
+  const [step, setStep] = useState<Step>("EMAIL");
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [temp_token, setTempToken] = useState("");
   return (
     <div className="w-full min-h-screen">
       <div className="flex flex-col lg:flex-row min-h-screen">
@@ -28,14 +29,56 @@ function Signup() {
           <div className="w-full max-w-md">
             <h2 className="text-3xl font-bold mb-2">Sign up</h2>
             <p className="text-gray-400 mb-8">
-              Complete your registration below
+              {step === "EMAIL" && "Enter your email to receive an OTP"}
+              {step === "OTP" &&
+                "Enter the verification code sent to your email"}
+              {step === "REGISTER" && "Complete your registration details"}
             </p>
 
-            <SignupForm data={data} isSubmitting={isSubmitting} />
+            {step === "EMAIL" && (
+              <CheckEmail
+                email={email}
+                setEmail={setEmail}
+                btnColor="bg-gradient-cta"
+                setStep={setStep}
+                url="check/register"
+              />
+            )}
+
+            {step === "OTP" && (
+              <Otp
+                otp={otp}
+                setOtp={setOtp}
+                setStep={setStep}
+                btnColor="bg-gradient-cta"
+                email={email}
+                setTempToken={setTempToken}
+                stepValue="REGISTER"
+              />
+            )}
+
+            {step === "REGISTER" && (
+              <Register
+                firstName={firstName}
+                setFirstName={setFirstName}
+                lastName={lastName}
+                setLastName={setLastName}
+                phone={phone}
+                setPhone={setPhone}
+                password={password}
+                setPassword={setPassword}
+                confirmPassword={confirmPassword}
+                setConfirmPassword={setConfirmPassword}
+                email={email}
+                temp_token={temp_token}
+              />
+            )}
 
             <div className="flex items-center justify-center mt-6">
-              <p className="mr-2">Already have an account?</p>
-              <Link to="/login" className="text-primary">
+              <p className="mr-2 text-gray-400 text-sm">
+                Already have an account?
+              </p>
+              <Link to="/login" className="text-primary text-sm font-semibold">
                 Sign in
               </Link>
             </div>
@@ -44,44 +87,6 @@ function Signup() {
       </div>
     </div>
   );
-}
-
-export async function action({ request }: { request: Request }) {
-  const formData = await request.formData();
-  const first_name = formData.get("first_name") as string;
-  const last_name = formData.get("last_name") as string;
-  const email = formData.get("email") as string;
-  const phone = formData.get("phone") as string;
-  const password = formData.get("password") as string;
-  const password_confirmation = formData.get("password_confirmation") as string;
-  const code = formData.get("code") as string;
-
-  try {
-    const response = await axios.post("auth/register", {
-      first_name,
-      last_name,
-      email,
-      phone,
-      password,
-      password_confirmation,
-      code,
-    });
-    if (response.data.success) {
-      setAuth({
-        token: response.data.data.authorisation.token,
-        user: response.data.data.user,
-      });
-      return redirect("/");
-    }
-  } catch (error: any) {
-    if (error.response?.data) {
-      return error.response.data;
-    }
-    return {
-      success: false,
-      message: "An unexpected error occurred. Please try again.",
-    };
-  }
 }
 
 export default Signup;

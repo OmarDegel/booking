@@ -1,9 +1,51 @@
 import { useState } from "react";
-
+import PasswordAuth from "../../components/form/inputs/PasswordAuth";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+import CheckEmail from "../../components/form/auth/CheckEmail";
+import Otp from "../../components/form/auth/Otp";
+type Step = "EMAIL" | "OTP" | "CHANGEPASSWORD";
 function ResetPassword() {
-  const [showPasswordF1, setShowPasswordF1] = useState(false);
-  const [showPasswordF2, setShowPasswordF2] = useState(false);
+  const navigate = useNavigate();
+  const [step, setStep] = useState<Step>("EMAIL");
+  const [loading, setLoading] = useState(false);
 
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [errors, setErrors] = useState<any>({});
+  const [temp_token, setTempToken] = useState("");
+
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrors({});
+    try {
+      const response = await axios.post("auth/rest/password", {
+        email,
+        password,
+        password_confirmation: confirmPassword,
+        token: temp_token,
+      });
+
+      if (response.data.success) {
+        toast.success("password reset successfully!");
+
+        navigate("/login");
+      }
+    } catch (error: any) {
+      const errorData = error.response?.data;
+      if (errorData?.errors) {
+        setErrors(errorData.errors);
+      }
+      toast.error(errorData?.message || "Password reset failed");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="w-full min-h-screen">
       <div className="flex flex-col lg:flex-row min-h-screen">
@@ -32,102 +74,48 @@ function ResetPassword() {
         <div className="w-full lg:w-1/2 h-screen flex items-center justify-center px-6 lg:px-12">
           <div className="w-full max-w-md">
             <h2 className="text-3xl font-bold mb-2">reset password</h2>
-            <p className="text-gray-400 mb-8">
-              Enter your new password
-            </p>
-            <form className="space-y-5">
-              <div className="relative">
-                <label htmlFor="password">Password</label>
-                <input
-                  id="password"
-                  type={showPasswordF1 ? "text" : "password"}
-                  placeholder="Enter your password"
-                  className="w-full h-12 px-3 border  border-gray-300 rounded-md"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPasswordF1(!showPasswordF1)}
-                  className="absolute right-3 top-1/2  flex items-center justify-center text-gray-400 hover:text-gray-600 cursor-pointer"
-                >
-                  {showPasswordF1 ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-5 w-5"
-                    >
-                      <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-5 w-5"
-                    >
-                      <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a21.1 21.1 0 0 1 5.35-5.35M3 3l18 18" />
-                    </svg>
-                  )}
-                </button>
-              </div>
-              <div className="relative">
-                <label htmlFor="confirm-password">Confirm Password</label>
-                <input
-                  id="confirm-password"
-                  type={showPasswordF2 ? "text" : "password"}
-                  placeholder="Enter your password"
-                  className="w-full h-12 px-3 border  border-gray-300 rounded-md"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPasswordF2(!showPasswordF2)}
-                  className="absolute right-3 top-1/2  flex items-center justify-center text-gray-400 hover:text-gray-600 cursor-pointer"
-                >
-                  {showPasswordF2 ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-5 w-5"
-                    >
-                      <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-5 w-5"
-                    >
-                      <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a21.1 21.1 0 0 1 5.35-5.35M3 3l18 18" />
-                    </svg>
-                  )}
-                </button>
-              </div>
+            <p className="text-gray-400 mb-8">Enter your new password</p>
+            {step === "EMAIL" && (
+              <CheckEmail
+                email={email}
+                setEmail={setEmail}
+                btnColor="bg-red-300"
+                setStep={setStep}
+                url="forget/password"
+              />
+            )}
 
-              <button className="w-full h-12 bg-red-300 text-white rounded-md font-semibold hover:bg-red-300/80">
-                Reset
-              </button>
-            </form>
-            
+            {step === "OTP" && (
+              <Otp
+                otp={otp}
+                setOtp={setOtp}
+                setStep={setStep}
+                btnColor="bg-red-300"
+                email={email}
+                setTempToken={setTempToken}
+                stepValue="CHANGEPASSWORD"
+              />
+            )}
+            {step === "CHANGEPASSWORD" && (
+              <form className="space-y-5" onSubmit={handleChangePassword}>
+                <PasswordAuth
+                  password={password}
+                  setPassword={setPassword}
+                  confirmPassword={confirmPassword}
+                  setConfirmPassword={setConfirmPassword}
+                  errors={{
+                    password: errors.password?.[0],
+                    confirmPassword: errors.password_confirmation?.[0],
+                  }}
+                />
+                <button
+                  className="w-full h-12 bg-red-300 text-white rounded-md font-semibold hover:bg-red-300/80"
+                  disabled={loading}
+                >
+                  {loading ? "Loading..." : "Reset Password"}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </div>

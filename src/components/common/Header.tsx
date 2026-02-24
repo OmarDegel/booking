@@ -42,11 +42,11 @@ function Header() {
         <div className="hidden md:flex items-center gap-6">
           <ul
             className={`flex items-center gap-6 text-sm font-medium ${
-              isHome ? "text-white" : "text-foreground"
+              isHome ? "text-foreground" : "text-foreground"
             }`}
           >
             {navItems.map((item) => (
-              <li key={item.path}>
+              <li key={item.path} className="text-sm">
                 <Link
                   to={item.path}
                   className="hover:text-primary transition-colors"
@@ -61,7 +61,7 @@ function Header() {
             <LanguageSwitcher />
           </div>
 
-          <CheckAuth isHome={isHome} />
+          <CheckAuth mobile={false} />
         </div>
         <button
           className={`md:hidden p-2 ${isHome ? "text-white" : "text-foreground"}`}
@@ -79,7 +79,7 @@ function Header() {
               <li key={item.path}>
                 <Link
                   to={item.path}
-                  className="text-sm font-medium text-foreground hover:text-primary block"
+                  className="text-sm font-medium  hover:text-primary block"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
@@ -87,30 +87,13 @@ function Header() {
               </li>
             ))}
 
-            <li className="flex items-center justify-between py-2 border-t border-border mt-2">
-              <span className="text-sm font-medium text-muted-foreground">
-                {t("common:theme.system")}
-              </span>
-            </li>
+            
             <li className="flex items-center justify-between py-2 border-b border-border mb-2">
-              <span className="text-sm font-medium text-muted-foreground">
-                {t("common:change_language")}
-              </span>
+
               <LanguageSwitcher />
             </li>
 
-            <li className="flex flex-col gap-3">
-              <Link to="/login" onClick={() => setIsOpen(false)}>
-                <button className="w-full h-10 rounded-md px-3 text-sm font-medium bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors">
-                  {t("auth:login")}
-                </button>
-              </Link>
-              <Link to="/register" onClick={() => setIsOpen(false)}>
-                <button className="w-full h-10 rounded-md px-3 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
-                  {t("auth:signup")}
-                </button>
-              </Link>
-            </li>
+           <CheckAuth mobile={true} />
           </ul>
         </div>
       )}

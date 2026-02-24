@@ -1,6 +1,19 @@
 import { Calendar, Heart, Share } from "lucide-react";
 import { BsWhatsapp } from "react-icons/bs";
+import WishlistButton from "../WishlistButton";
+import { useCopyToClipboard } from "../../../hooks/useCopyToClipboard";
+import { toast } from "react-toastify";
 function Aside({ trip }: any) {
+  const [copiedText, copy] = useCopyToClipboard();
+  const handleCopy = (text: string) => () => {
+    copy(text)
+      .then(() => {
+        toast.success("Copied to clipboard");
+      })
+      .catch((error) => {
+        toast.error("Failed to copy to clipboard");
+      });
+  };
   return (
     <aside className="lg:w-1/3 w-full  top-20">
       <div className="bg-white rounded-2xl p-5 shadow-md ">
@@ -42,8 +55,8 @@ function Aside({ trip }: any) {
         <a
           href={`https://wa.me/201019631989?text=${encodeURIComponent(
             `Hello, I would like to book this trip:
-              Trip: ${trip.title}
-              Date: ${trip.date}`,
+              Trip: ${trip.name.en}
+              Date: ${trip.start_date}`,
           )}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -56,13 +69,11 @@ function Aside({ trip }: any) {
         </a>
 
         <div className="flex gap-2 mt-4">
-          <button className="flex-1 bg-primary text-white px-4 py-3 rounded-2xl font-medium flex items-center justify-center gap-2 hover:bg-primary/80 cursor-pointer">
-            <Heart className="h-5 w-5" />
-            Add to wishlist
-          </button>
+          <WishlistButton tripId={trip.id} />
           <button
             className="flex-1 bg-secondary text-foreground px-4 py-3 rounded-2xl font-medium flex items-center justify-center gap-2
                    hover:bg-gray-400/30 cursor-pointer"
+                   onClick={handleCopy(window.location.href)}
           >
             <Share className="h-5 w-5" />
             Share

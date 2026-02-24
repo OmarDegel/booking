@@ -8,11 +8,11 @@ import type { TTrip } from "../../types/Trips.Type";
 interface TripsProps {
   trips: TTrip[];
   title: string;
+  filter: string
 }
 
-const Trips: React.FC<TripsProps> = ({ trips, title }) => {
-  const { i18n, t } = useTranslation();
-  const currentLang = i18n.language === "ar" ? "ar" : "en";
+const Trips: React.FC<TripsProps> = ({ trips, title , filter }) => {
+  const { t } = useTranslation();
 
   return (
     <section className="py-20 container mx-auto px-4 lg:px-20">
@@ -33,7 +33,7 @@ const Trips: React.FC<TripsProps> = ({ trips, title }) => {
       </div>
 
       <div className="mt-10 flex justify-center">
-        <Link to="/trips">
+        <Link to={`/trips?${filter}`}>
           <button className="px-[30px] py-2 rounded-md text-sm font-medium transition text-foreground border border-border hover:bg-muted flex items-center gap-2">
             {t("common:home.view_all")}
             <ArrowBigRight className="h-4 w-4" />

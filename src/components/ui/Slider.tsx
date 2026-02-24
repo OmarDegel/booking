@@ -18,35 +18,29 @@ export interface Category {
   link: string
 }
 
-interface CategorySliderProps {
-  categories: Category[]
-}
 
-const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
+
+const Slider: React.FC = () => {
   const { i18n } = useTranslation()
   const currentLang = i18n.language === "ar" ? "ar" : "en"
   const dir = currentLang === "ar" ? "rtl" : "ltr"
 
-  if (!categories || categories.length === 0) return null
 
   return (
     <div className="w-full py-8" dir={dir}>
       <div className="relative overflow-visible px-4">
         <Carousel dir={dir} opts={{ direction: dir }}>
           <CarouselContent className="-ml-4 flex">
-            {categories.map((category) => (
               <CarouselItem
-                key={category.id}
-                className="pl-4 flex-none w-full sm:w-1/2 lg:w-1/4"
+                className="pl-4 flex-none w-full "
               >
                 <Link
-                  to={`trips/?category=${category.link}`}
+                  to={`trips/?category`}
                   className="block w-full"
                 >
                   <div className="relative aspect-square overflow-hidden rounded-2xl transition-all duration-300 ease-in-out">
                     <img
-                      src={category.image}
-                      alt={category.name[currentLang]}
+                      src="./src/assets/images/travel.png"
                       className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                       loading="lazy"
                     />
@@ -54,12 +48,11 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
                   </div>
                   <div className="mt-2 text-center">
                     <span className="block text-sm sm:text-base font-semibold truncate px-1 transition-colors duration-300 text-primary-600">
-                      {category.name[currentLang]}
+                      dasdas
                     </span>
                   </div>
                 </Link>
               </CarouselItem>
-            ))}
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />
@@ -69,4 +62,4 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
   )
 }
 
-export default CategorySlider
+export default Slider

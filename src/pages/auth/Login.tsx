@@ -3,11 +3,10 @@ import Content from "../../components/ui/auth/Content";
 import LoginForm from "../../components/form/auth/LoginForm";
 import axios from "axios";
 import { setAuth } from "../../util/auth";
+import { useState } from "react";
 
 function Login() {
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
-  const data = useActionData();
+
   return (
     <div className="w-full min-h-screen">
       <div className="flex flex-col lg:flex-row min-h-screen">
@@ -24,12 +23,12 @@ function Login() {
               Enter your credentials to access your account
             </p>
 
-            <LoginForm data={data} isSubmitting={isSubmitting} />
+            <LoginForm  />
             <div className="flex flex-col items-center gap-4 mt-6 text-sm">
               <div className="flex items-center gap-2">
                 <p>Don't have an account?</p>
                 <Link
-                  to="/check-email"
+                  to="/signup"
                   className="text-primary font-medium hover:underline cursor-pointer"
                 >
                   Sign up
@@ -39,7 +38,7 @@ function Login() {
               <div className="flex items-center gap-2">
                 <p>Forgot password?</p>
                 <Link
-                  to="/forget-password"
+                  to="/reset-password"
                   className="text-primary font-medium hover:underline cursor-pointer"
                 >
                   Reset password

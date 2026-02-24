@@ -1,9 +1,13 @@
 import axios from "axios";
 
-export default async function HomeLoader() {
+export default async function WishlistLoader() {
   try {
-    const res = await axios.get("home");
-    console.log(res)
+    const res = await axios.get(`wishlist`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    });
     if (res.data.success === true) {
       return res.data.data;
     }

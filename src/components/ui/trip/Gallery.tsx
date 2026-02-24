@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Gallery({ trip }: { trip: any }) {
   const [activeImage, setActiveImage] = useState(0);
 
-  const totalImages = trip.gallery.length;
+  const totalImages = trip.images.length;
 
   return (
     <div className="bg-secondary-foreground">
@@ -28,7 +28,7 @@ function Gallery({ trip }: { trip: any }) {
             <AnimatePresence mode="wait">
               <motion.img
                 key={activeImage}
-                src={trip.gallery[activeImage].image}
+                src={trip.images[activeImage]}
                 alt={trip.name?.en || `Trip image ${activeImage + 1}`}
                 className="w-full h-full object-cover"
                 initial={{ opacity: 0 }}
@@ -44,7 +44,7 @@ function Gallery({ trip }: { trip: any }) {
           </div>
 
           <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-y-auto lg:w-24 lg:max-h-[400px]">
-            {trip.gallery.map((img: any, i: number) => (
+            {trip.images.map((img: any, i: number) => (
               <button
                 key={i}
                 onClick={() => setActiveImage(i)}
@@ -55,7 +55,7 @@ function Gallery({ trip }: { trip: any }) {
                 }`}
               >
                 <img
-                  src={img.image}
+                  src={img}
                   alt={`Thumbnail ${i + 1}`}
                   className="w-full h-full object-cover"
                 />

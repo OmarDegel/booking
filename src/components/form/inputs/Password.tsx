@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Text from "./Text";
 
-function Password({ data }: any) {
+function Password({ erorr ,password, setPassword }: any) {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="relative">
@@ -9,7 +9,9 @@ function Password({ data }: any) {
         label="Password"
         name="password"
         type={showPassword ? "text" : "password"}
-        error={ data?.errors?.password?.[0]}
+        error={ erorr}
+        value={password}
+        onChange={setPassword}
       />
       <button
         type="button"
