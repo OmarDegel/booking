@@ -1,15 +1,18 @@
+import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import { useState } from "react";
 import CreateReview from "./CreateReview";
 function Reviews({ data }: any) {
+  const { t } = useTranslation("common");
   const [reviews, setReviews] = useState(data.reviews);
 
   return (
     <div>
       <h2 className="text-xl font-semibold text-foreground my-4 ">
-        Reviews & Ratings
+        {t("trip.reviews_ratings")}
       </h2>
+
       <div className="space-y-4">
         {reviews.map((r: any, i: number) => (
           <motion.div
@@ -23,7 +26,7 @@ function Reviews({ data }: any) {
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-sm font-bold text-accent-foreground">
-                  {r.user.image  ? (
+                  {r.user.image ? (
                     <img
                       src={r.user.image}
                       alt={r.user.name}

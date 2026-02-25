@@ -1,17 +1,17 @@
+import { useTranslation } from "react-i18next";
 import {
   Calendar,
-  Heart,
   PersonStanding,
   Share,
-  TimerIcon,
 } from "lucide-react";
 import { BsPeople, BsWhatsapp } from "react-icons/bs";
 import WishlistButton from "../WishlistButton";
 import { useCopyToClipboard } from "../../../hooks/useCopyToClipboard";
 import { toast } from "react-toastify";
 function Aside({ trip }: any) {
+  const { t } = useTranslation("common");
   const settings = JSON.parse(localStorage.getItem("settings") || "{}");
-  const [copiedText, copy] = useCopyToClipboard();
+  const [, copy] = useCopyToClipboard();
   let whatis = settings.site_phone as string;
   if (whatis[0] != "2") {
     whatis = "+2" + whatis;
@@ -20,12 +20,13 @@ function Aside({ trip }: any) {
   const handleCopy = (text: string) => () => {
     copy(text)
       .then(() => {
-        toast.success("Copied to clipboard");
+        toast.success(t("trip.copy_success"));
       })
-      .catch((error) => {
-        toast.error("Failed to copy to clipboard");
+      .catch(() => {
+        toast.error(t("trip.copy_failed"));
       });
   };
+
   return (
     <aside className="lg:w-1/3 w-full  top-20 ">
       <div className="bg-white rounded-2xl p-5 shadow-md ">
@@ -39,36 +40,29 @@ function Aside({ trip }: any) {
             </span>
           )}
         </div>
-        <p className="text-gray-500 text-[15px] mb-4">per person</p>
+        <p className="text-gray-500 text-[15px] mb-4">{t("trip.per_person")}</p>
         <div className="description flex flex-col gap-3">
           <div className="bg-secondary rounded-2xl flex gap-3 items-center p-3">
             <BsPeople className="h-5 w-5" />
             <div>
-              <p className="text-gray-400 text-[.75rem]">group size</p>
+              <p className="text-gray-400 text-[.75rem]">{t("trip.group_size")}</p>
               <p className="text-sm">{trip.group_size}</p>
             </div>
           </div>
           <div className="bg-secondary rounded-2xl flex gap-3 items-center p-3">
             <PersonStanding className="h-5 w-5" />
             <div>
-              <p className="text-gray-400 text-[.75rem]">min age - max age</p>
+              <p className="text-gray-400 text-[.75rem]">{t("trip.age_range")}</p>
               <p className="text-sm">
                 {trip.min_age} & {trip.max_age ? trip.max_age : trip.min_age}
               </p>
             </div>
           </div>
 
-          {/* <div className="bg-secondary rounded-2xl flex gap-3 items-center p-3">
-            <Calendar className="h-5 w-5" />
-            <div>
-              <p className="text-gray-400 text-[.75rem]">Group Size</p>
-              <p className="text-sm">10</p>
-            </div>
-          </div> */}
           <div className="bg-secondary rounded-2xl flex gap-3 items-center p-3">
             <Calendar className="h-5 w-5" />
             <div>
-              <p className="text-gray-400 text-[.75rem]">type</p>
+              <p className="text-gray-400 text-[.75rem]">{t("trip.type")}</p>
               <p className="text-sm">{trip.type}</p>
             </div>
           </div>
@@ -76,9 +70,9 @@ function Aside({ trip }: any) {
 
         <a
           href={`https://wa.me/${whatis}/?text=${encodeURIComponent(
-            `Hello, I would like to book this trip:
-              Trip: ${trip.name.en}
-              ${trip.type === "daily" ? "Date: " + trip.start_time : "Date: " + trip.start_date} `,
+            `${t("trip.whatsapp_message")}
+              ${t("trip.whatsapp_trip")}: ${trip.name.en}
+              ${trip.type === "daily" ? t("trip.whatsapp_date") + ": " + trip.start_time : t("trip.whatsapp_date") + ": " + trip.start_date} `,
           )}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -86,7 +80,7 @@ function Aside({ trip }: any) {
         >
           <button className="bg-green-600 text-white px-4 py-3 rounded-2xl font-medium w-full mt-4 hover:bg-green-600/80 cursor-pointer flex items-center justify-center gap-2">
             <BsWhatsapp className="h-5 w-5" />
-            <span>Book Now</span>
+            <span>{t("trip.book_now")}</span>
           </button>
         </a>
 
@@ -98,9 +92,10 @@ function Aside({ trip }: any) {
             onClick={handleCopy(window.location.href)}
           >
             <Share className="h-5 w-5" />
-            Share
+            {t("trip.share")}
           </button>
         </div>
+
       </div>
     </aside>
   );

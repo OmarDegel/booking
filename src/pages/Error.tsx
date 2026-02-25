@@ -1,18 +1,20 @@
+import { useTranslation } from "react-i18next";
 import { Flag } from "lucide-react";
 import { Link, useRouteError } from "react-router-dom";
 
 export function Error() {
+  const { t } = useTranslation("common");
   const error: any = useRouteError();
 
-  let title = "Error 404";
-  let message = "It looks like something went wrong.";
+  let title = t("error.general_title");
+  let message = t("error.general_message");
 
   if (error) {
     if (error.status === 404) {
-      title = "Error 404";
-      message = "The page you are looking for does not exist.";
+      title = t("error.404_title");
+      message = t("error.404_message");
     } else if (error.statusText || error.message) {
-      title = "Oops!";
+      title = t("error.general_title");
       message = error.statusText || error.message;
     }
   }
@@ -29,7 +31,7 @@ export function Error() {
           to="/"
           className="w-full px-4 md:w-[8rem] bg-primary hover:bg-primary/90 text-white rounded-md py-2"
         >
-          back home
+          {t("error.back_home")}
         </Link>
       </div>
     </div>

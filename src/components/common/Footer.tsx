@@ -1,25 +1,24 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+
+import { useTranslation } from "react-i18next";
 import { MessageCircle, Phone } from "lucide-react";
 import SocialIcons from "../ui/SocialIcons";
 
+
 function Footer() {
+  const { t } = useTranslation();
   const settingsString = localStorage.getItem("settings");
   const data = settingsString ? JSON.parse(settingsString) : null;
 
-  const [links, setLinks] = useState([
-    "About",
-    "Contact",
-    "trips",
-    "home",
-  ]);
-  const [socialIcons, setSocialIcons] = useState([
-    "facebook",
-    "twitter",
-    "instagram",
-  ]);
+  const links = [
+    { name: t("footer.about"), path: "/about" },
+    { name: t("footer.contact"), path: "/contact" },
+    { name: t("footer.trips"), path: "/trips" },
+    { name: t("footer.home"), path: "/" },
+  ];
+
   return (
+
     <section className="bg-[#0c1524] pt-[100px] md:pt-[50px] pb-[50px] text-white ">
       <div className="container mx-auto px-4 lg:px-20 py-4">
         <Link to="/">
@@ -28,9 +27,7 @@ function Footer() {
         <div className="flex justify-between flex-wrap flex-col md:flex-row gap-[30px] mt-[30px]">
           <div className="flex items-start gap-[15px] w-[340px] max-w-full">
             <p className=" font-normal text-sm tracking-[0.8px] ">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum
-              nisi dignissimos unde ipsam modi facilis nam magni, assumenda ad
-              fuga.
+              {t("footer.description")}
             </p>
           </div>
           <div>
@@ -49,16 +46,17 @@ function Footer() {
           </div>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-[20px]">
             {links.map((item) => (
-              <li key={item}>
+              <li key={item.path}>
                 <Link
-                  to={item === "home" ? "/" : item.toLowerCase()}
+                  to={item.path}
                   className=" hover:text-primary transition-all duration-200 text-base"
                 >
-                  {item}
+                  {item.name}
                 </Link>
               </li>
             ))}
           </ul>
+
           <SocialIcons />
         </div>
       </div>

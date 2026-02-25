@@ -1,6 +1,8 @@
+import { useTranslation } from "react-i18next";
 import { CheckIcon } from "lucide-react";
 
 function About() {
+  const { t } = useTranslation("common");
   return (
     <div className="bg-secondary py-20">
       <div className="container mx-auto px-4 lg:px-20">
@@ -20,29 +22,27 @@ function About() {
             </svg>
 
             <div className="mt-6">
-             
+
               <span className="block text-3xl font-extrabold text-primary mt-1">
                 Booking
               </span>
             </div>
           </div>
 
-          <div className="text-center lg:text-left">
+          <div className="text-center lg:text-left rtl:lg:text-right">
             <span className="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-4">
-              About Us
+              {t("about.tag")}
             </span>
 
             <h3 className="text-2xl font-bold text-primary mb-2">Booking</h3>
 
             <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-              Your Trusted Partner in <br />
-              <span className="text-primary">Travel Experience</span>
+              {t("about.trusted_partner")} <br />
+              <span className="text-primary">{t("about.travel_experience")}</span>
             </h2>
 
-            <p className="text-gray-600 text-lg leading-relaxed mb-10 max-w-xl">
-              Specialized in offering premium travel services, seamless booking,
-              reliable support, and unforgettable journeys. We always strive to
-              deliver excellence and satisfaction for our valued customers.
+            <p className="text-gray-600 text-lg leading-relaxed mb-10 max-w-xl text-justify">
+              {t("about.description")}
             </p>
 
             {/* FEATURES */}
@@ -52,7 +52,7 @@ function About() {
                   <CheckIcon className="h-6 w-6 text-primary" />
                 </div>
                 <span className="text-gray-700 text-lg">
-                  Best Price Guarantee
+                  {t("about.best_price")}
                 </span>
               </div>
 
@@ -61,7 +61,7 @@ function About() {
                   <CheckIcon className="h-6 w-6 text-primary" />
                 </div>
                 <span className="text-gray-700 text-lg">
-                  Seamless Booking Experience
+                  {t("about.seamless_booking")}
                 </span>
               </div>
 
@@ -70,7 +70,7 @@ function About() {
                   <CheckIcon className="h-6 w-6 text-primary" />
                 </div>
                 <span className="text-gray-700 text-lg">
-                  Reliable Support & Fast Service
+                  {t("about.reliable_support")}
                 </span>
               </div>
             </div>
@@ -82,3 +82,4 @@ function About() {
 }
 
 export default About;
+

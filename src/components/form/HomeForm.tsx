@@ -1,5 +1,5 @@
-import React from "react";
 import { Form } from "react-router-dom";
+
 
 function HomeForm({ t }: any) {
   return (
@@ -15,16 +15,18 @@ function HomeForm({ t }: any) {
           name="search"
         />
         <input
-          type="min_price"
+          type="number"
           name="min_price"
           placeholder={t("common:home.minPrice")}
           className="w-full h-12 rounded-md border border-input bg-background px-4 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground"
         />
         <input
+          type="number"
           className="w-full h-12 rounded-md border border-input bg-background px-4 text-sm focus:outline-none focus:ring-2 focus:ring-ring placeholder:text-muted-foreground text-foreground"
           placeholder={t("common:home.maxPrice")}
           name="max_price"
         />
+
         <button
           type="submit"
           className="w-full h-12 rounded-md bg-primary text-primary-foreground text-sm font-medium shadow-md hover:opacity-90 transition"

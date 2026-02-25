@@ -1,5 +1,6 @@
+import { useTranslation } from "react-i18next";
 import { Delete, Eye, MapPin } from "lucide-react";
-import { Link, useLoaderData, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hook";
 import { actLikeToggle } from "../../store/wishlists/wishlistsSlice";
 import { useEffect, useState } from "react";
@@ -8,9 +9,11 @@ import { useFetch } from "../../hooks/useFetch";
 // import Pagination from "../../components/ui/Pagination";
 
 function Favourites() {
+  const { t, i18n } = useTranslation("common");
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.user.token);
-  const { data, loading, error } = useFetch("wishlist", {
+  const { data, loading } = useFetch("wishlist", {
+
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -39,7 +42,7 @@ function Favourites() {
       ) : (
         <>
           <h1 className="text-2xl font-bold text-foreground mb-6">
-            My Favourites
+            {t("profile.my_favourites")}
           </h1>
 
           <div className="flex flex-col gap-4">
@@ -53,14 +56,14 @@ function Favourites() {
                   <div className="w-full sm:w-40 h-28 rounded-xl overflow-hidden bg-gray-200 shrink-0">
                     <img
                       src={trip.image || "https://via.placeholder.com/150"}
-                      alt={trip.name?.en || "Trip"}
+                      alt={trip.name?.[i18n.language] || trip.name?.en || "Trip"}
                       className="w-full h-full object-cover"
                     />
                   </div>
 
                   <div className="flex-1 flex flex-col gap-1 items-start">
                     <h2 className="text-lg font-semibold text-foreground">
-                      {trip.name?.en || "Trip"}
+                      {trip.name?.[i18n.language] || trip.name?.en || "Trip"}
                     </h2>
 
                     <span className="flex items-center gap-1 text-gray-500">
@@ -96,5 +99,6 @@ function Favourites() {
     </div>
   );
 }
+
 
 export default Favourites;

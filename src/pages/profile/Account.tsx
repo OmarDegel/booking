@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 import Text from "../../components/form/inputs/Text";
 import { useEffect, useState } from "react";
@@ -7,14 +8,15 @@ import { useAppDispatch, useAppSelector } from "../../store/hook";
 import { setUser } from "../../store/user/userSlice";
 
 function Account() {
+  const { t } = useTranslation("common");
   const { user, loading, token } = useAppSelector((state) => state.user);
   const data = user;
 
   const dispatch = useAppDispatch();
 
   const genderOptions = [
-    { value: "male", label: "Male" },
-    { value: "female", label: "Female" },
+    { value: "male", label: t("profile.male") },
+    { value: "female", label: t("profile.female") },
   ];
 
   const [submitLoading, setSubmitLoading] = useState(false);
@@ -77,23 +79,23 @@ function Account() {
       ) : (
         <>
           <h1 className="text-2xl font-bold text-foreground mb-6">
-            My Account
+            {t("profile.my_account")}
           </h1>
           <form onSubmit={handleSubmit}>
             <div className="bg-white rounded-2xl shadow-card p-7 flex flex-col items-start gap-4 shadow-md">
               <h2 className="text-lg font-semibold text-foreground">
-                Contact Information
+                {t("profile.contact_info")}
               </h2>
               <ProfileDropZone setAvatar={setAvatar} avatar={data?.image} />
-              <div className="flex-1 flex flex-col sm:flex-row gap-5 items-start">
+              <div className="flex-1 flex flex-col sm:flex-row gap-5 items-start w-full">
                 <Text
-                  label="Email Address"
+                  label={t("profile.email")}
                   name="email"
                   readOnly
                   defaultValue={data?.email}
                 />
                 <Text
-                  label="Phone Number"
+                  label={t("profile.phone")}
                   name="phone"
                   error={errors?.phone?.[0]}
                   value={phone}
@@ -104,18 +106,18 @@ function Account() {
 
             <div className="bg-white rounded-2xl shadow-card p-7 flex flex-col items-start gap-4 shadow-md mt-6">
               <h2 className="text-lg font-semibold text-foreground">
-                Personal Information
+                {t("profile.personal_info")}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 w-full">
                 <Text
-                  label="First Name"
+                  label={t("profile.first_name")}
                   name="first_name"
                   value={first_name}
                   error={errors?.first_name?.[0]}
                   onChange={(e) => setFirstName(e)}
                 />
                 <Text
-                  label="Last Name"
+                  label={t("profile.last_name")}
                   name="last_name"
                   value={last_name}
                   error={errors?.last_name?.[0]}
@@ -123,13 +125,16 @@ function Account() {
                 />
                 <Text
                   type="date"
-                  label="Date of Birth"
+                  label={t("profile.birth_date")}
                   name="birth_date"
                   value={birth_date}
                   error={errors?.birth_date?.[0]}
                   onChange={(e) => setDateOfBirth(e)}
                 />
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1 rtl:text-right">
+                    {t("profile.gender")}
+                  </label>
                   <select
                     name="gender"
                     value={gender}
@@ -156,7 +161,7 @@ function Account() {
               className="mt-6 px-20 py-3 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
               disabled={submitLoading}
             >
-              {submitLoading ? "Saving..." : "Save Changes"}
+              {submitLoading ? t("profile.saving") : t("profile.save_changes")}
             </button>
           </form>
         </>
@@ -164,5 +169,6 @@ function Account() {
     </div>
   );
 }
+
 
 export default Account;

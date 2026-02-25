@@ -1,19 +1,14 @@
 import {
-  Calendar,
-  Clock,
   MapPin,
   Star,
-  Timer,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import TripTime from "./TripTime";
 
 function Details({ trip }: any) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation("common");
   const currentLang = i18n.language === "ar" ? "ar" : "en";
 
-  const displayPrice =
-    trip.is_offer && trip.offer_price ? trip.offer_price : trip.price;
 
   return (
     <div className="space-y-6">
@@ -32,11 +27,12 @@ function Details({ trip }: any) {
         </span>
         <span className="flex items-center gap-1">
           <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-          {trip.rating.rate} ({trip.rating.rate_count} reviews)
+          {trip.rating.rate} ({trip.rating.rate_count} {t("trip.reviews_count")})
         </span>
       </div>
 
-      <h3 className="text-2xl text-zinc-700 mt-3 mb-2">About</h3>
+      <h3 className="text-2xl text-zinc-700 mt-3 mb-2">{t("trip.about_heading")}</h3>
+
       <div
         className="text-zinc-600 prose max-w-none"
         dangerouslySetInnerHTML={{ __html: trip.description[currentLang] }}
@@ -46,7 +42,7 @@ function Details({ trip }: any) {
         <TripTime trip={trip} />
       </div>
 
-      
+
     </div>
   );
 }

@@ -23,11 +23,97 @@
         "budget": "Budget",
         "search": "Search",
         "trending": "Trending Trips",
-        "view_all": "View All Trips"
+        "view_all": "View All Trips",
+        "categories": "Categories",
+        "newTrips": "New Trips",
+        "recommendedTrips": "Recommended Trips",
+        "featureTrips": "Featured Trips",
+        "offerTrips": "Offers",
+        "minPrice": "Min Price",
+        "maxPrice": "Max Price"
     },
     "trip": {
         "save": "Save",
         "person": "/person",
-        "reviews": "reviews"
+        "reviews": "reviews",
+        "reviews_count": "reviews",
+        "about_heading": "About",
+        "per_person": "per person",
+        "group_size": "group size",
+        "age_range": "min age - max age",
+        "type": "type",
+        "book_now": "Book Now",
+        "share": "Share",
+        "whatsapp_message": "Hello, I would like to book this trip:",
+        "whatsapp_trip": "Trip",
+        "whatsapp_date": "Date",
+        "copy_success": "Copied to clipboard",
+        "copy_failed": "Failed to copy to clipboard",
+        "reviews_ratings": "Reviews & Ratings",
+        "back_to_trips": "Back to Trips"
+    },
+    "footer": {
+        "about": "About",
+        "contact": "Contact",
+        "trips": "Trips",
+        "home": "Home",
+        "description": "Discover the world's best destinations with us. We provide easy booking and great experiences for all travelers."
+    },
+    "about": {
+        "tag": "About Us",
+        "trusted_partner": "Your Trusted Partner in",
+        "travel_experience": "Travel Experience",
+        "description": "Specialized in offering premium travel services, seamless booking, reliable support, and unforgettable journeys. We always strive to deliver excellence and satisfaction for our valued customers.",
+        "best_price": "Best Price Guarantee",
+        "seamless_booking": "Seamless Booking Experience",
+        "reliable_support": "Reliable Support & Fast Service"
+    },
+    "contact": {
+        "title": "Contact Us",
+        "subtitle": "Have questions or need assistance? We're here to help! Reach out to us through any of the following methods:",
+        "phone_label": "Phone Number",
+        "phone_placeholder": "Enter your phone number",
+        "email_label": "Email",
+        "email_placeholder": "Enter your email",
+        "message_label": "Message",
+        "message_placeholder": "Write your message...",
+        "send_message": "Send Message",
+        "sending": "Sending...",
+        "errors": {
+            "phone_required": "Phone number is required",
+            "email_required": "Email is required",
+            "message_required": "Message is required"
+        }
+    },
+    "error": {
+        "404_title": "Error 404",
+        "404_message": "The page you are looking for does not exist.",
+        "general_title": "Oops!",
+        "general_message": "It looks like something went wrong.",
+        "back_home": "back home"
+    },
+    "trips": {
+        "all_trips": "All Trips",
+        "browse_trips": "Browse our full collection of curated travel experiences."
+    },
+    "profile": {
+        "title": "Profile",
+        "my_account": "My Account",
+        "my_favourites": "My Favourites",
+        "account_settings": "Account Settings",
+        "contact_info": "Contact Information",
+        "personal_info": "Personal Information",
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "birth_date": "Date of Birth",
+        "email": "Email Address",
+        "phone": "Phone Number",
+        "gender": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "save_changes": "Save Changes",
+        "saving": "Saving...",
+        "logout": "Logout",
+        "favourites": "Favourites"
     }
 }

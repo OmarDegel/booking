@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   Navigate,
   NavLink,
@@ -12,6 +13,7 @@ import { logout } from "../../store/user/userSlice";
 import { useEffect, useState } from "react";
 
 export default function ProfileLayout() {
+  const { t } = useTranslation("common");
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -32,10 +34,9 @@ export default function ProfileLayout() {
   }
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
-    `flex items-center gap-2 px-4 py-3 rounded-lg transition-colors ${
-      isActive
-        ? "bg-primary/20 text-primary"
-        : "text-gray-700 hover:bg-primary/20 hover:text-primary"
+    `flex items-center gap-2 px-4 py-3 rounded-lg transition-colors ${isActive
+      ? "bg-primary/20 text-primary"
+      : "text-gray-700 hover:bg-primary/20 hover:text-primary"
     }`;
 
   function handleLogout() {
@@ -64,28 +65,29 @@ export default function ProfileLayout() {
               <h2 className="text-xl font-semibold text-foreground">
                 {user?.name}
               </h2>
-              <p className="text-gray-500 text-sm">Profile</p>
+              <p className="text-gray-500 text-sm">{t("profile.title")}</p>
             </div>
 
             <nav className="space-y-2">
               <NavLink to="/profile/favourites" className={linkClass}>
                 <Heart className="w-5 h-5" />
-                <span>Favourites</span>
+                <span>{t("profile.favourites")}</span>
               </NavLink>
               <NavLink to="/profile" end className={linkClass}>
                 <User className="w-5 h-5" />
-                <span>Account Settings</span>
+                <span>{t("profile.account_settings")}</span>
               </NavLink>
               <button
                 className="flex items-center gap-2 px-4 py-3 rounded-lg bg-red-300 text-white w-full hover:bg-red-400"
                 onClick={handleLogout}
               >
                 <LogOut className="w-5 h-5" />
-                <span>Logout</span>
+                <span>{t("profile.logout")}</span>
               </button>
             </nav>
           </div>
         </aside>
+
 
         <main className="lg:w-3/4 w-full relative">
           {isLoading && (

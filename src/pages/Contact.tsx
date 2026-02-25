@@ -3,13 +3,16 @@ import { Link } from "react-router-dom";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 function Contact() {
-  const [socialIcons, setSocialIcons] = useState([
+  const { t } = useTranslation("common");
+  const [socialIcons] = useState([
     "facebook",
     "twitter",
     "instagram",
   ]);
+
   const [phone, setPhone] = useState("");
   const [content, setContent] = useState("");
   const [email, setEmail] = useState("");
@@ -18,15 +21,15 @@ function Contact() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!phone) {
-      toast.error("Phone number is required");
+      toast.error(t("contact.errors.phone_required"));
       return;
     }
     if (!content) {
-      toast.error("Message is required");
+      toast.error(t("contact.errors.message_required"));
       return;
     }
     if (!email) {
-      toast.error("Email is required");
+      toast.error(t("contact.errors.email_required"));
       return;
     }
     setLoading(true);
@@ -54,12 +57,11 @@ function Contact() {
       <div className="container mx-auto px-4 lg:px-20 py-16">
         <div className="">
           <h2 className="text-[44px] md:text-[70px] text-primary font-bold">
-            Contact Us
+            {t("contact.title")}
           </h2>
 
           <p className="text-[20px] text-gray-600 mt-6 max-w-2xl mx-auto mb-10">
-            Have questions or need assistance? We're here to help! Reach out to
-            us through any of the following methods:
+            {t("contact.subtitle")}
           </p>
 
           <ul className="flex gap-6 justify-center mb-14">
@@ -91,12 +93,12 @@ function Contact() {
             >
               <div>
                 <label className="block text-base font-semibold text-left mb-2">
-                  Phone Number
+                  {t("contact.phone_label")}
                 </label>
                 <input
                   type="text"
                   value={phone}
-                  placeholder="Enter your phone number"
+                  placeholder={t("contact.phone_placeholder")}
                   className="w-full h-[64px] rounded-2xl border border-input bg-background px-6 text-base focus:outline-none focus:ring-2 focus:ring-primary"
                   onChange={(val) => setPhone(val.target.value)}
                 />
@@ -104,12 +106,12 @@ function Contact() {
 
               <div>
                 <label className="block text-base font-semibold text-left mb-2">
-                  Email
+                  {t("contact.email_label")}
                 </label>
                 <input
                   type="email"
                   value={email}
-                  placeholder="Enter your email"
+                  placeholder={t("contact.email_placeholder")}
                   className="w-full h-[64px] rounded-2xl border border-input bg-background px-6 text-base focus:outline-none focus:ring-2 focus:ring-primary"
                   onChange={(val) => setEmail(val.target.value)}
                 />
@@ -117,11 +119,11 @@ function Contact() {
 
               <div>
                 <label className="block text-base font-semibold text-left mb-2">
-                  Message
+                  {t("contact.message_label")}
                 </label>
                 <textarea
                   value={content}
-                  placeholder="Write your message..."
+                  placeholder={t("contact.message_placeholder")}
                   className="w-full h-[180px] resize-none rounded-2xl border border-input bg-background px-6 py-4 text-base focus:outline-none focus:ring-2 focus:ring-primary"
                   onChange={(val) => setContent(val.target.value)}
                 />
@@ -133,7 +135,7 @@ function Contact() {
                   disabled={loading}
                   className="bg-primary text-white px-10 py-4 rounded-2xl text-lg font-semibold hover:opacity-90 transition"
                 >
-                  {loading ? "Sending..." : "Send Message"}
+                  {loading ? t("contact.sending") : t("contact.send_message")}
                 </button>
               </div>
             </form>
@@ -145,3 +147,4 @@ function Contact() {
 }
 
 export default Contact;
+

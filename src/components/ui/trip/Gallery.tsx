@@ -1,9 +1,11 @@
-import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { ArrowLeft } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Gallery({ trip }: { trip: any }) {
+  const { t } = useTranslation("common");
   const [activeImage, setActiveImage] = useState(0);
 
   const totalImages = trip.images.length;
@@ -17,9 +19,10 @@ function Gallery({ trip }: { trip: any }) {
             to="/trips"
             className="inline-flex items-center text-black hover:text-foreground text-sm transition-colors"
           >
-            <ArrowLeft className="h-4 w-4 mr-1" /> Back to Trips
+            <ArrowLeft className="h-4 w-4 mr-1 rtl:rotate-180" /> {t("trip.back_to_trips")}
           </Link>
         </div>
+
 
         {/* Main Gallery */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4">
@@ -48,11 +51,10 @@ function Gallery({ trip }: { trip: any }) {
               <button
                 key={i}
                 onClick={() => setActiveImage(i)}
-                className={`relative shrink-0 w-20 h-16 lg:w-24 lg:h-18 rounded-xl overflow-hidden border-2 transition-all ${
-                  activeImage === i
-                    ? "border-primary ring-2 ring-primary/30"
-                    : "border-transparent opacity-60 hover:opacity-100"
-                }`}
+                className={`relative shrink-0 w-20 h-16 lg:w-24 lg:h-18 rounded-xl overflow-hidden border-2 transition-all ${activeImage === i
+                  ? "border-primary ring-2 ring-primary/30"
+                  : "border-transparent opacity-60 hover:opacity-100"
+                  }`}
               >
                 <img
                   src={img}

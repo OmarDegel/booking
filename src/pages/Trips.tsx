@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import type { TTrip } from "../types/Trips.Type";
@@ -6,12 +7,14 @@ import Pagination from "../components/ui/Pagination";
 import Aside from "../components/ui/trips/Aside";
 
 function Trips() {
+  const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
+
 
   const query = searchParams.toString();
   const url = `/trips?${query}`;
 
-  const { data, loading, error } = useFetch<{
+  const { data, loading } = useFetch<{
     trips: TTrip[];
     meta: any;
     links: any;
@@ -30,12 +33,13 @@ function Trips() {
       <div className="py-20 px-4 lg:px-20 container mx-auto">
         <div className="text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-            All Trips
+            {t("common:trips.all_trips")}
           </h2>
           <p className="text-gray-400">
-            Browse our full collection of curated travel experiences.
+            {t("common:trips.browse_trips")}
           </p>
         </div>
+
 
         <div className="flex flex-col lg:flex-row rounded-3xl mt-10 gap-6">
           <Aside
