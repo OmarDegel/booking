@@ -1,8 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { getUser } from "../../util/auth";
+import { useAppSelector } from "../../store/hook";
 
 function AuthMiddleware() {
-  const user = getUser(); 
+  const user = useAppSelector((state) => state.user.user);
   if (user) {
     return <Navigate to="/" replace />;
   }

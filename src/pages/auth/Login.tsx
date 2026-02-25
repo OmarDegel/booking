@@ -1,12 +1,8 @@
-import { Link, redirect, useActionData, useNavigation } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Content from "../../components/ui/auth/Content";
 import LoginForm from "../../components/form/auth/LoginForm";
-import axios from "axios";
-import { setAuth } from "../../util/auth";
-import { useState } from "react";
 
 function Login() {
-
   return (
     <div className="w-full min-h-screen">
       <div className="flex flex-col lg:flex-row min-h-screen">
@@ -54,30 +50,3 @@ function Login() {
 
 export default Login;
 
-export async function action({ request }: { request: Request }) {
-  const formData = await request.formData();
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-
-  try {
-    const response = await axios.post("auth/login", {
-      email,
-      password,
-    });
-    if (response.data.success) {
-      setAuth({
-        token: response.data.data.authorisation.token,
-        user: response.data.data.user,
-      });
-      return redirect("/");
-    }
-  } catch (error: any) {
-    if (error.response?.data) {
-      return error.response.data;
-    }
-    return {
-      success: false,
-      message: "An unexpected error occurred. Please try again.",
-    };
-  }
-}

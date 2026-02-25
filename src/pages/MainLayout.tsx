@@ -2,9 +2,8 @@ import { BsWhatsapp } from "react-icons/bs";
 import { Footer, Header } from "../components/common";
 import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "../store/hook";
+import { useAppDispatch, useAppSelector } from "../store/hook";
 import { actGetSettings } from "../store/settings/settingsSlice";
-import { getUser } from "../util/auth";
 import { actGetWishlist } from "../store/wishlists/wishlistsSlice";
 
 function MainLayout() {
@@ -12,7 +11,7 @@ function MainLayout() {
 
   const [loadingSettings, setLoadingSettings] = useState(true);
   const settings = JSON.parse(localStorage.getItem("settings") || "{}");
-  const user = getUser();
+  const user = useAppSelector((state) => state.user.user);
 
   useEffect(() => {
     if (user) {

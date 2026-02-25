@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { getUser } from "../../util/auth";
 import { User } from "lucide-react";
+import { useAppSelector } from "../../store/hook";
 
 function CheckAuth({ mobile }: { mobile?: boolean }) {
-  const user = getUser();
+  const user = useAppSelector((state) => state.user.user);
   const { t } = useTranslation();
 
   if (user && Object.keys(user).length > 0) {

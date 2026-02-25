@@ -1,70 +1,97 @@
 
-export const setAuth = ({ token, user }: { token: string; user: any }) => {
-  if (!token) {
-    console.warn("No token provided to setAuth");
+type AuthPayload = {
+  token: string;
+  user: any;
+  expiresIn: number; 
+};
+
+const TOKEN_KEY = "token";
+const USER_KEY = "user";
+const EXPIRY_KEY = "token_expiry";
+
+export const setAuth = ({ token, user, expiresIn }: AuthPayload) => {
+  if (!token || !expiresIn) {
+    clearAuth();
     return;
   }
 
-  localStorage.setItem("token", token);
+  const expiryTime = Date.now() + expiresIn * 1000;
 
-  if (!user) {
-    localStorage.removeItem("user");
-  } else {
+  localStorage.setItem(TOKEN_KEY, token);
+  localStorage.setItem(EXPIRY_KEY, expiryTime.toString());
+
+  if (user) {
     try {
-      localStorage.setItem("user", JSON.stringify(user));
-    } catch (e) {
-      console.error("Failed to stringify user for localStorage:", e);
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
+    } catch {
+      localStorage.removeItem(USER_KEY);
     }
+  } else {
+    localStorage.removeItem(USER_KEY);
   }
 };
+
 
 export const clearAuth = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(USER_KEY);
+  localStorage.removeItem(EXPIRY_KEY);
 };
 
-export const getAuth = () => {
-  const token = localStorage.getItem("token");
 
-  let user = null;
-  const rawUser = localStorage.getItem("user");
-  if (rawUser && rawUser !== "undefined") {
-    try {
-      user = JSON.parse(rawUser);
-    } catch (e) {
-      console.error("Invalid JSON in localStorage for user:", e);
-      user = null;
-    }
+export function getToken(): string | null {
+  const token = localStorage.getItem(TOKEN_KEY);
+  const expiry = localStorage.getItem(EXPIRY_KEY);
+
+  if (!token || !expiry) {
+    clearAuth();
+    return null;
   }
 
-  return { token, user };
-};
+  if (Date.now() > Number(expiry)) {
+    clearAuth();
+    return null;
+  }
 
-export const setUser = (user: any) => {
-  if (!user) {
-    localStorage.removeItem("user");
-    return;
-  }
-  try {
-    localStorage.setItem("user", JSON.stringify(user));
-  } catch (e) {
-    console.error("Failed to stringify user for localStorage:", e);
-  }
-};
+  return token;
+}
+
 
 export function getUser() {
-  const rawUser = localStorage.getItem("user");
+  const token = getToken();
+  if (!token) return null;
+
+  const rawUser = localStorage.getItem(USER_KEY);
   if (!rawUser || rawUser === "undefined") return null;
 
   try {
     return JSON.parse(rawUser);
-  } catch (e) {
-    console.error("Invalid JSON in localStorage for user:", e);
+  } catch {
     return null;
   }
 }
 
-export function getToken() {
-  const token = localStorage.getItem("token");
-  return token || null;
-}
+
+export const getAuth = () => {
+  const token = getToken();
+  const user = getUser();
+
+  if (!token) return { token: null, user: null };
+
+  return { token, user };
+};
+
+
+export const setUser = (user: any) => {
+  const token = getToken();
+  if (!token || !user) {
+    localStorage.removeItem(USER_KEY);
+    return;
+  }
+
+  try {
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
+  } catch {
+    localStorage.removeItem(USER_KEY);
+  }
+};

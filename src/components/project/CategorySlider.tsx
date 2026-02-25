@@ -1,46 +1,49 @@
-"use client"
+"use client";
 
-import React from "react"
-import { Link } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "../../assets/components/ui/carousel"
-import { useTranslation } from "react-i18next"
-
+} from "../../assets/components/ui/carousel";
+import { useTranslation } from "react-i18next";
+import Autoplay from "embla-carousel-autoplay";
 export interface Category {
-  id: string | number
-  name: { en: string; ar: string }
-  image: string
-  link: string
+  id: string | number;
+  name: { en: string; ar: string };
+  image: string;
+  link: string;
 }
 
 interface CategorySliderProps {
-  categories: Category[]
+  categories: Category[];
 }
 
 const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
-  const { i18n } = useTranslation()
-  const currentLang = i18n.language === "ar" ? "ar" : "en"
-  const dir = currentLang === "ar" ? "rtl" : "ltr"
+  const { i18n } = useTranslation();
+  const currentLang = i18n.language === "ar" ? "ar" : "en";
+  const dir = currentLang === "ar" ? "rtl" : "ltr";
 
-  if (!categories || categories.length === 0) return null
+  if (!categories || categories.length === 0) return null;
+
 
   return (
     <div className="w-full py-8" dir={dir}>
       <div className="relative overflow-visible px-4">
-        <Carousel dir={dir} opts={{ direction: dir }}>
-          <CarouselContent className="-ml-4 flex">
+        <Carousel
+          dir={dir}
+          opts={{ direction: dir }}
+          plugins={[Autoplay({ delay: 2000, stopOnInteraction: true })]}
+        >
+          <CarouselContent className="ml-4 flex">
             {categories.map((category) => (
               <CarouselItem
                 key={category.id}
-                className="pl-4 flex-none w-full sm:w-1/2 lg:w-1/4"
+                className="pl-4 flex-none w-full sm:w-1/2 lg:w-1/5"
               >
                 <Link
-                  to={`trips/?category=${category.link}`}
+                  to={`/trips/?category_id[]=${category.id}`}
                   className="block w-full"
                 >
                   <div className="relative aspect-square overflow-hidden rounded-2xl transition-all duration-300 ease-in-out">
@@ -61,12 +64,10 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
         </Carousel>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CategorySlider
+export default CategorySlider;

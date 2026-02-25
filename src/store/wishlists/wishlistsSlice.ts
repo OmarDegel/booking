@@ -55,7 +55,6 @@ const wishlistSlice = createSlice({
     builder.addCase(actGetWishlist.fulfilled, (state, action) => {
       state.loading = "succeeded";
       state.itemsId = action.payload.data.wishlists.map((trip) => trip.trip_id);
-      console.log(state.itemsId);
     });
     builder.addCase(actGetWishlist.rejected, (state, action) => {
       state.loading = "failed";

@@ -2,37 +2,48 @@ import {
   Navigate,
   NavLink,
   Outlet,
-  redirect,
   useNavigate,
   useNavigation,
 } from "react-router-dom";
 import { Heart, LogOut, User } from "lucide-react";
-import { clearAuth, getUser } from "../../util/auth";
-import { useAppDispatch } from "../../store/hook";
+import { useAppDispatch, useAppSelector } from "../../store/hook";
 import { clearWishlist } from "../../store/wishlists/wishlistsSlice";
+import { logout } from "../../store/user/userSlice";
+import { useEffect, useState } from "react";
 
 export default function ProfileLayout() {
-  const user = getUser();
-  if (!user) {
-    return <Navigate to="/" replace />;
-  }
-  const linkClass = ({ isActive }: { isActive: boolean }) =>
-    `flex items-center gap-2 px-4 py-3 rounded-lg transition-colors
-     ${
-       isActive
-         ? "bg-primary/20 text-primary"
-         : "text-gray-700 hover:bg-primary/20 hover:text-primary"
-     }`;
+  const user = useAppSelector((state) => state.user.user);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const navigation = useNavigation();
   const isLoading =
     navigation.state === "loading" || navigation.state === "submitting";
-  const dispatch = useAppDispatch();
+
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      setShouldRedirect(true);
+    }
+  }, [user]);
+
+  if (shouldRedirect) {
+    return <Navigate to="/login" replace />;
+  }
+
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    `flex items-center gap-2 px-4 py-3 rounded-lg transition-colors ${
+      isActive
+        ? "bg-primary/20 text-primary"
+        : "text-gray-700 hover:bg-primary/20 hover:text-primary"
+    }`;
+
   function handleLogout() {
-    clearAuth();
     dispatch(clearWishlist());
+    dispatch(logout());
     navigate("/");
   }
+
   return (
     <div className="flex flex-col bg-secondary min-h-screen">
       <div className="container mx-auto py-10 flex flex-col lg:flex-row gap-10 px-4 lg:px-20">
@@ -40,7 +51,15 @@ export default function ProfileLayout() {
           <div className="bg-white rounded-2xl shadow-md p-5">
             <div className="text-center mb-6">
               <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-3 text-2xl font-bold text-accent-foreground">
-                JD
+                {user?.image ? (
+                  <img
+                    src={user.image}
+                    alt={user.name}
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                ) : (
+                  user?.name?.charAt(0).toUpperCase()
+                )}
               </div>
               <h2 className="text-xl font-semibold text-foreground">
                 {user?.name}

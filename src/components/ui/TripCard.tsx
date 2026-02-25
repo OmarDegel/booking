@@ -16,11 +16,7 @@ function TripCard({ trip }: any) {
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
 
-          {trip.originalPrice && (
-            <span className="absolute top-3 start-3 bg-amber-300 text-stone-800 text-xs font-semibold px-3 py-1 rounded-full shadow-sm z-10">
-              {t("trip.save")} ${trip.originalPrice - trip.price}
-            </span>
-          )}
+
 
           <span className="absolute top-3 end-3 bg-white/90 backdrop-blur-sm text-stone-800 text-xs font-medium px-3 py-1 rounded-full shadow-sm z-10">
             {trip.category.name[currentLang]}
@@ -30,7 +26,7 @@ function TripCard({ trip }: any) {
         <div className="p-5">
           <div className="flex items-center gap-1 text-sm text-muted-foreground mb-2">
             <MapPin className="h-3.5 w-3.5" />
-            {trip.city.name[currentLang]}
+            {trip.city.name[currentLang]} , {trip.region.name[currentLang]}
           </div>
 
           <h3 className="font-semibold text-lg text-foreground mb-1.5 group-hover:text-primary transition-colors">
@@ -62,14 +58,13 @@ function TripCard({ trip }: any) {
                 ${trip.price}
               </span>
 
-              {trip.originalPrice && (
+              {trip.is_offer && (
                 <span className="text-sm text-muted-foreground line-through ms-2">
-                  ${trip.originalPrice}
+                  ${trip.offer_price}
                 </span>
               )}
 
               <span className="text-sm text-muted-foreground">
-                {" "}
                 {t("trip.person")}
               </span>
             </div>

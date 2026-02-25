@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import Text from "../inputs/Text";
 import Password from "../inputs/Password";
 import { toast } from "react-toastify";
-import { setAuth } from "../../../util/auth";
 import axios from "axios";
+import { useAppDispatch } from "../../../store/hook";
+import { setAuth } from "../../../store/user/userSlice";
 
 function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,10 +25,12 @@ function LoginForm() {
       });
       if (response.data.success) {
         toast.success(response.data.message || "Login successful");
-        setAuth({
-          token: response.data.data.authorisation.token,
-          user: response.data.data.user,
-        });
+        dispatch(
+          setAuth({
+            token: response.data.data.authorisation.token,
+            user: response.data.data.user,
+          }),
+        );
         navigate("/");
       }
     } catch (error: any) {

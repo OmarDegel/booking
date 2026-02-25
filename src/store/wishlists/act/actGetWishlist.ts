@@ -7,12 +7,12 @@ type TResponse = TTrip[];
 const actGetWishlist = createAsyncThunk(
   "wishlist/actGetWishlist",
   async (_, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-
+    const { rejectWithValue, getState } = thunkAPI;
+    const token = (getState() as any).user.token;
     try {
       const response = await axios.get<TResponse>(`wishlist`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });

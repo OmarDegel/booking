@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export function useFetch<T = any>(url: string) {
+export function useFetch<T = any>(url: string, headers?: any) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -10,7 +10,7 @@ export function useFetch<T = any>(url: string) {
     let isMounted = true;
     setLoading(true);
     axios
-      .get(url)
+      .get(url, headers)
       .then((res) => {
         if (!isMounted) return;
         if (res.data?.success === true) {

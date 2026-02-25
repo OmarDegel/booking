@@ -1,10 +1,22 @@
-import { Calendar, Heart, Share } from "lucide-react";
-import { BsWhatsapp } from "react-icons/bs";
+import {
+  Calendar,
+  Heart,
+  PersonStanding,
+  Share,
+  TimerIcon,
+} from "lucide-react";
+import { BsPeople, BsWhatsapp } from "react-icons/bs";
 import WishlistButton from "../WishlistButton";
 import { useCopyToClipboard } from "../../../hooks/useCopyToClipboard";
 import { toast } from "react-toastify";
 function Aside({ trip }: any) {
+  const settings = JSON.parse(localStorage.getItem("settings") || "{}");
   const [copiedText, copy] = useCopyToClipboard();
+  let whatis = settings.site_phone as string;
+  if (whatis[0] != "2") {
+    whatis = "+2" + whatis;
+  }
+  console.log(settings.site_phone);
   const handleCopy = (text: string) => () => {
     copy(text)
       .then(() => {
@@ -15,27 +27,37 @@ function Aside({ trip }: any) {
       });
   };
   return (
-    <aside className="lg:w-1/3 w-full  top-20">
+    <aside className="lg:w-1/3 w-full  top-20 ">
       <div className="bg-white rounded-2xl p-5 shadow-md ">
-        <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
-          ${trip.price}
-        </h2>
+        <div className="flex items-center justify-start gap-3">
+          <h2 className="text-2xl md:text-3xl font-bold text-green-600">
+            ${trip.price}
+          </h2>
+          {trip.is_offer && (
+            <span className="text-sm text-muted-foreground line-through">
+              ${trip.offer_price}
+            </span>
+          )}
+        </div>
         <p className="text-gray-500 text-[15px] mb-4">per person</p>
         <div className="description flex flex-col gap-3">
           <div className="bg-secondary rounded-2xl flex gap-3 items-center p-3">
-            <Calendar className="h-5 w-5" />
+            <BsPeople className="h-5 w-5" />
             <div>
-              <p className="text-gray-400 text-[.75rem]">Duration</p>
-              <p className="text-sm">{trip.duration}</p>
+              <p className="text-gray-400 text-[.75rem]">group size</p>
+              <p className="text-sm">{trip.group_size}</p>
             </div>
           </div>
           <div className="bg-secondary rounded-2xl flex gap-3 items-center p-3">
-            <Calendar className="h-5 w-5" />
+            <PersonStanding className="h-5 w-5" />
             <div>
-              <p className="text-gray-400 text-[.75rem]">Start</p>
-              <p className="text-sm">{trip.startDate}</p>
+              <p className="text-gray-400 text-[.75rem]">min age - max age</p>
+              <p className="text-sm">
+                {trip.min_age} & {trip.max_age ? trip.max_age : trip.min_age}
+              </p>
             </div>
           </div>
+
           {/* <div className="bg-secondary rounded-2xl flex gap-3 items-center p-3">
             <Calendar className="h-5 w-5" />
             <div>
@@ -46,17 +68,17 @@ function Aside({ trip }: any) {
           <div className="bg-secondary rounded-2xl flex gap-3 items-center p-3">
             <Calendar className="h-5 w-5" />
             <div>
-              <p className="text-gray-400 text-[.75rem]">Raiting</p>
-              <p className="text-sm">{trip.rating.rate}</p>
+              <p className="text-gray-400 text-[.75rem]">type</p>
+              <p className="text-sm">{trip.type}</p>
             </div>
           </div>
         </div>
 
         <a
-          href={`https://wa.me/201019631989?text=${encodeURIComponent(
+          href={`https://wa.me/${whatis}/?text=${encodeURIComponent(
             `Hello, I would like to book this trip:
               Trip: ${trip.name.en}
-              Date: ${trip.start_date}`,
+              ${trip.type === "daily" ? "Date: " + trip.start_time : "Date: " + trip.start_date} `,
           )}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -73,7 +95,7 @@ function Aside({ trip }: any) {
           <button
             className="flex-1 bg-secondary text-foreground px-4 py-3 rounded-2xl font-medium flex items-center justify-center gap-2
                    hover:bg-gray-400/30 cursor-pointer"
-                   onClick={handleCopy(window.location.href)}
+            onClick={handleCopy(window.location.href)}
           >
             <Share className="h-5 w-5" />
             Share

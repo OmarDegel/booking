@@ -14,10 +14,7 @@ function WishlistButton({ tripId }: any) {
     if (loading === "pending") return;
     dispatch(actLikeToggle(tripId));
   };
-  useEffect(() => {
-    console.log(tripId);
 
-  }, [tripId]);
   return (
     <button
       onClick={handleClick}

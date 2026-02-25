@@ -4,19 +4,19 @@ import axios from "axios";
 const actLikeToggle = createAsyncThunk(
   "wishlist/actLikeToggle",
   async (tripId: number, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue, getState } = thunkAPI;
+    const token = (getState() as any).user.token;
     try {
       const resp = await axios.post(
         `/wishlist`,
         { trip_id: tripId },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         },
       );
-      console.log(resp);
       return resp.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

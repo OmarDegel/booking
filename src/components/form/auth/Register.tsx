@@ -4,7 +4,8 @@ import Text from "../inputs/Text";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { setAuth } from "../../../util/auth";
+import { useAppDispatch } from "../../../store/hook";
+import { setAuth } from "../../../store/user/userSlice";
 
 function Register({
   firstName,
@@ -23,6 +24,7 @@ function Register({
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<any>({});
+  const dispatch = useAppDispatch();
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -40,10 +42,12 @@ function Register({
 
       if (response.data.success) {
         toast.success("Account created successfully!");
-        setAuth({
-          token: response.data.data.authorisation.token,
-          user: response.data.data.user,
-        });
+        dispatch(
+          setAuth({
+            token: response.data.data.authorisation.token,
+            user: response.data.data.user,
+          }),
+        );
         navigate("/");
       }
     } catch (error: any) {

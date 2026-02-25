@@ -12,7 +12,6 @@ function Home() {
   const dataSettings = settingsString ? JSON.parse(settingsString) : null;
 
   const { data, loading, error } = useFetch("home");
-  console.log(dataSettings?.home_image);
   if (error)
     return <div className="text-center py-20 text-red-500">{error}</div>;
 
@@ -34,20 +33,7 @@ function Home() {
           <HomeForm t={t} />
         </div>
       </section>
-      <section className="py-20 container mx-auto px-4 lg:px-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-            {t("common:home.slider")}
-          </h2>
-        </div>
-        {loading ? (
-          <div className="flex justify-center items-center min-h-[200px]">
-            <div className="w-10 h-10 border-4 border-t-primary border-border rounded-full animate-spin"></div>
-          </div>
-        ) : (
-          <Slider />
-        )}
-      </section>
+     
       <section className="py-20 container mx-auto px-4 lg:px-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">

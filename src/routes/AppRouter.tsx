@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "../pages/MainLayout";
 import Home from "../pages/Home";
-import Login, { action as loginAction } from "../pages/auth/Login";
+import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 import ResetPassword from "../pages/auth/ResetPassword";
 import Trips from "../pages/Trips";
@@ -10,13 +10,8 @@ import ProfileLayout from "../pages/profile/ProfileLayout";
 import Favourites from "../pages/profile/Favourites";
 import Contact from "../pages/Contact";
 import About from "../pages/About";
-import Account, {
-  action as accountAction,
-  loader as accountLoader,
-} from "../pages/profile/Account";
+import Account from "../pages/profile/Account";
 
-import TripLoader from "../loaders/TripLoader";
-import WishlistLoader from "../loaders/WishlistLoader";
 import { Error } from "../pages/Error";
 import AuthMiddleware from "../pages/middleware/AuthMiddleware";
 const router = createBrowserRouter([
@@ -36,7 +31,6 @@ const router = createBrowserRouter([
       {
         path: "/trips/:link",
         element: <TripDetails />,
-        loader: TripLoader,
       },
       {
         path: "/contact",
@@ -53,13 +47,10 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Account />,
-            loader: accountLoader,
-            action: accountAction,
           },
           {
             path: "favourites",
             element: <Favourites />,
-            loader: WishlistLoader,
           },
         ],
       },
@@ -71,7 +62,6 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
-        action: loginAction,
       },
       {
         path: "/signup",
@@ -81,7 +71,7 @@ const router = createBrowserRouter([
       {
         path: "/reset-password",
         element: <ResetPassword />,
-      }
+      },
     ],
   },
 ]);

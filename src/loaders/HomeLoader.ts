@@ -3,7 +3,6 @@ import axios from "axios";
 export default async function HomeLoader() {
   try {
     const res = await axios.get("home");
-    console.log(res)
     if (res.data.success === true) {
       return res.data.data;
     }
