@@ -1,119 +1,123 @@
 {
-    "welcome": "مرحبا بك في بوكينج",
-    "change_language": "تغيير اللغة",
-    "theme": {
-        "light": "فاتح",
-        "dark": "داكن",
-        "system": "النظام"
-    },
-    "nav": {
-        "home": "الرئيسية",
-        "about": "عن الموقع",
-        "contact": "اتصل بنا",
-        "trips": "الرحلات"
-    },
-    "login": "تسجيل دخول",
-    "signup": "إنشاء حساب",
-    "home": {
-        "titleLine1": "إكتشف وجهتك",
-        "titleLine2": "القادمة",
-        "subtitle": "استكشف أفضل الوجهات في العالم معنا.",
-        "where": "إلى أين؟",
-        "date": "التاريخ",
-        "budget": "الميزانية",
-        "search": "بحث",
-        "trending": "الرحلات الشائعة",
-        "view_all": "عرض كل الرحلات",
-        "categories": "الفئات",
-        "newTrips": "الرحلات الجديدة",
-        "recommendedTrips": "رحلات موصى بها",
-        "featureTrips": "رحلات مميزة",
-        "offerTrips": "العروض",
-        "minPrice": "أقل سعر",
-        "maxPrice": "أعلى سعر"
-    },
-    "trip": {
-        "save": "وفر",
-        "person": "/شخص",
-        "reviews": "مراجعة",
-        "reviews_count": "مراجعات",
-        "about_heading": "عن الرحلة",
-        "per_person": "لكل شخص",
-        "group_size": "حجم المجموعة",
-        "age_range": "أقل عمر - أكبر عمر",
-        "type": "النوع",
-        "book_now": "احجز الآن",
-        "share": "مشاركة",
-        "whatsapp_message": "مرحباً، أود حجز هذه الرحلة:",
-        "whatsapp_trip": "الرحلة",
-        "whatsapp_date": "التاريخ",
-        "copy_success": "تم النسخ إلى الحافظة",
-        "copy_failed": "فشل النسخ إلى الحافظة",
-        "reviews_ratings": "المراجعات والتقييمات",
-        "back_to_trips": "العودة للرحلات"
-    },
-    "footer": {
-        "about": "عن الموقع",
-        "contact": "اتصل بنا",
-        "trips": "الرحلات",
-        "home": "الرئيسية",
-        "description": "استكشف أفضل الوجهات في العالم معنا. نحن نوفر حجزاً سهلاً وتجارب رائعة لجميع المسافرين."
-    },
-    "about": {
-        "tag": "عن الموقع",
-        "trusted_partner": "شريكك الموثوق فيه",
-        "travel_experience": "تجربة السفر",
-        "description": "متخصصون في تقديم خدمات سفر متميزة، حجز سلس، دعم موثوق، ورحلات لا تنسى. نحن نسعى دائماً لتقديم التميز والرضا لعملائنا الكرام.",
-        "best_price": "ضمان أفضل سعر",
-        "seamless_booking": "تجربة حجز سلسة",
-        "reliable_support": "دعم موثوق وخدمة سريعة"
-    },
-    "contact": {
-        "title": "اتصل بنا",
-        "subtitle": "لديك أسئلة أو تطلب مساعدة؟ نحن هنا للمساعدة! تواصل معنا من خلال أي من الطرق التالية:",
-        "phone_label": "رقم الهاتف",
-        "phone_placeholder": "أدخل رقم هاتفك",
-        "email_label": "البريد الإلكتروني",
-        "email_placeholder": "أدخل بريدك الإلكتروني",
-        "message_label": "الرسالة",
-        "message_placeholder": "اكتب رسالتك...",
-        "send_message": "إرسال الرسالة",
-        "sending": "جاري الإرسال...",
-        "errors": {
-            "phone_required": "رقم الهاتف مطلوب",
-            "email_required": "البريد الإلكتروني مطلوب",
-            "message_required": "الرسالة مطلوبة"
-        }
-    },
-    "error": {
-        "404_title": "خطأ 404",
-        "404_message": "الصفحة التي تبحث عنها غير موجودة.",
-        "general_title": "عفواً!",
-        "general_message": "يبدو أن هناك خطأ ما حدث.",
-        "back_home": "العودة للرئيسية"
-    },
-    "trips": {
-        "all_trips": "كل الرحلات",
-        "browse_trips": "تصفح مجموعتنا الكاملة من تجارب السفر المنسقة."
-    },
-    "profile": {
-        "title": "الملف الشخصي",
-        "my_account": "حسابي",
-        "my_favourites": "المفضلات",
-        "account_settings": "إعدادات الحساب",
-        "contact_info": "معلومات الاتصال",
-        "personal_info": "المعلومات الشخصية",
-        "first_name": "الاسم الأول",
-        "last_name": "الاسم الأخير",
-        "birth_date": "تاريخ الميلاد",
-        "email": "البريد الإلكتروني",
-        "phone": "رقم الهاتف",
-        "gender": "الجنس",
-        "male": "ذكر",
-        "female": "أنثى",
-        "save_changes": "حفظ التغييرات",
-        "saving": "جاري الحفظ...",
-        "logout": "تسجيل خروج",
-        "favourites": "المفضلات"
+  "welcome": "مرحبا بك في بوكينج",
+  "change_language": "تغيير اللغة",
+  "theme": {
+    "light": "فاتح",
+    "dark": "داكن",
+    "system": "النظام"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "about": "عن الموقع",
+    "contact": "اتصل بنا",
+    "trips": "الرحلات"
+  },
+  "login": "تسجيل دخول",
+  "signup": "إنشاء حساب",
+  "home": {
+    "titleLine1": "إكتشف وجهتك",
+    "titleLine2": "القادمة",
+    "subtitle": "استكشف أفضل الوجهات في العالم معنا.",
+    "where": "إلى أين؟",
+    "date": "التاريخ",
+    "budget": "الميزانية",
+    "search": "بحث",
+    "trending": "الرحلات الشائعة",
+    "view_all": "عرض كل الرحلات",
+    "categories": "الفئات",
+    "newTrips": "الرحلات الجديدة",
+    "recommendedTrips": "رحلات موصى بها",
+    "featureTrips": "رحلات مميزة",
+    "offerTrips": "العروض",
+    "minPrice": "أقل سعر",
+    "maxPrice": "أعلى سعر"
+  },
+  "trip": {
+    "save": "وفر",
+    "person": "/شخص",
+    "reviews": "مراجعة",
+    "reviews_count": "مراجعات",
+    "about_heading": "عن الرحلة",
+    "per_person": "لكل شخص",
+    "group_size": "حجم المجموعة",
+    "age_range": "أقل عمر - أكبر عمر",
+    "type": "النوع",
+    "book_now": "احجز الآن",
+    "share": "مشاركة",
+    "whatsapp_message": "مرحباً، أود حجز هذه الرحلة:",
+    "whatsapp_trip": "الرحلة",
+    "whatsapp_date": "التاريخ",
+    "copy_success": "تم النسخ إلى الحافظة",
+    "copy_failed": "فشل النسخ إلى الحافظة",
+    "reviews_ratings": "المراجعات والتقييمات",
+    "back_to_trips": "العودة للرحلات"
+  },
+  "footer": {
+    "about": "عن الموقع",
+    "contact": "اتصل بنا",
+    "trips": "الرحلات",
+    "home": "الرئيسية",
+    "description": "استكشف أفضل الوجهات في العالم معنا. نحن نوفر حجزاً سهلاً وتجارب رائعة لجميع المسافرين."
+  },
+  "about": {
+    "tag": "عن الموقع",
+    "trusted_partner": "شريكك الموثوق فيه",
+    "travel_experience": "تجربة السفر",
+    "description": "متخصصون في تقديم خدمات سفر متميزة، حجز سلس، دعم موثوق، ورحلات لا تنسى. نحن نسعى دائماً لتقديم التميز والرضا لعملائنا الكرام.",
+    "best_price": "ضمان أفضل سعر",
+    "seamless_booking": "تجربة حجز سلسة",
+    "reliable_support": "دعم موثوق وخدمة سريعة"
+  },
+  "contact": {
+    "title": "اتصل بنا",
+    "subtitle": "لديك أسئلة أو تطلب مساعدة؟ نحن هنا للمساعدة! تواصل معنا من خلال أي من الطرق التالية:",
+    "phone_label": "رقم الهاتف",
+    "phone_placeholder": "أدخل رقم هاتفك",
+    "email_label": "البريد الإلكتروني",
+    "email_placeholder": "أدخل بريدك الإلكتروني",
+    "message_label": "الرسالة",
+    "message_placeholder": "اكتب رسالتك...",
+    "send_message": "إرسال الرسالة",
+    "sending": "جاري الإرسال...",
+    "errors": {
+      "phone_required": "رقم الهاتف مطلوب",
+      "email_required": "البريد الإلكتروني مطلوب",
+      "message_required": "الرسالة مطلوبة"
     }
+  },
+  "error": {
+    "404_title": "خطأ 404",
+    "404_message": "الصفحة التي تبحث عنها غير موجودة.",
+    "general_title": "عفواً!",
+    "general_message": "يبدو أن هناك خطأ ما حدث.",
+    "back_home": "العودة للرئيسية"
+  },
+  "trips": {
+    "all_trips": "كل الرحلات",
+    "browse_trips": "تصفح مجموعتنا الكاملة من تجارب السفر المنسقة."
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "my_account": "حسابي",
+    "my_favourites": "المفضلات",
+    "account_settings": "إعدادات الحساب",
+    "contact_info": "معلومات الاتصال",
+    "personal_info": "المعلومات الشخصية",
+    "first_name": "الاسم الأول",
+    "last_name": "الاسم الأخير",
+    "birth_date": "تاريخ الميلاد",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "gender": "الجنس",
+    "male": "ذكر",
+    "female": "أنثى",
+    "save_changes": "حفظ التغييرات",
+    "saving": "جاري الحفظ...",
+    "logout": "تسجيل خروج",
+    "favourites": "المفضلات",
+    "other": "اخرى"
+  },
+  "erorr": {
+    "forbidden_title": "غير مصرح لك"
+  }
 }

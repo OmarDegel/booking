@@ -14,6 +14,7 @@ import Account from "../pages/profile/Account";
 
 import { Error } from "../pages/Error";
 import AuthMiddleware from "../pages/middleware/AuthMiddleware";
+import Forbidden from "../pages/errors/Forbidden ";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
         element: <ResetPassword />,
       },
     ],
+  },
+  {
+    path: "403",
+    element: <Forbidden />,
   },
 ]);
 const AppRouter = () => {

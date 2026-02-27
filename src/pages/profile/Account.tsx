@@ -17,6 +17,7 @@ function Account() {
   const genderOptions = [
     { value: "male", label: t("profile.male") },
     { value: "female", label: t("profile.female") },
+    { value: "other", label: "profile.other" },
   ];
 
   const [submitLoading, setSubmitLoading] = useState(false);
@@ -169,6 +170,5 @@ function Account() {
     </div>
   );
 }
-
 
 export default Account;
