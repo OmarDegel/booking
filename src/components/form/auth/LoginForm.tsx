@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Text from "../inputs/Text";
-import Password from "../inputs/Password";
+import Password from "../inputs/Password.tsx";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useAppDispatch } from "../../../store/hook";
 import { setAuth } from "../../../store/user/userSlice";
+import Text from "../inputs/Text.tsx";
 
 function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
