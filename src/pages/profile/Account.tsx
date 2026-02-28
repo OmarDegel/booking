@@ -6,18 +6,23 @@ import { ProfileDropZone } from "../../components/ui/ProfileDropZone";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../store/hook";
 import { setUser } from "../../store/user/userSlice";
+import { useFetch } from "../../hooks/useFetch";
 
 function Account() {
   const { t } = useTranslation("common");
-  const { user, loading, token } = useAppSelector((state) => state.user);
-  const data = user;
-
+  const token = useAppSelector((state) => state.user.token);
+  const { data, loading, error } = useFetch("profile", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   const dispatch = useAppDispatch();
-
+  useEffect(() => {
+    if (data) {
+      dispatch(setUser(data));
+    }
+  }, [data, dispatch]);
   const genderOptions = [
     { value: "male", label: t("profile.male") },
     { value: "female", label: t("profile.female") },
-    { value: "other", label: "profile.other" },
   ];
 
   const [submitLoading, setSubmitLoading] = useState(false);
@@ -73,7 +78,7 @@ function Account() {
 
   return (
     <div>
-      {loading ? (
+      {submitLoading || loading ? (
         <div className="flex justify-center items-center min-h-[200px]">
           <div className="w-10 h-10 border-4 border-t-primary border-border rounded-full animate-spin"></div>
         </div>

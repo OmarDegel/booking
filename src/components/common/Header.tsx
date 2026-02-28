@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Menu, X } from "lucide-react";
 import CheckAuth from "../ui/CheckAuth";
@@ -30,14 +30,14 @@ function Header() {
       }`}
     >
       <div className="flex justify-between items-center container mx-auto px-4 lg:px-20 py-4">
-        <Link to="/" className="flex items-center gap-2 text-xl font-bold">
+        <NavLink to="/" className="flex items-center gap-2 text-xl font-bold">
           <img src={`${data?.logo}`} alt="Logo" className="h-8 w-8" />
           <span
-            className={`${isHome ? "text-white" : "text-foreground"} font-medium`}
+            className={`text-foreground font-medium`}
           >
             {data?.site_title}
           </span>
-        </Link>
+        </NavLink>
 
         <div className="hidden md:flex items-center gap-6">
           <ul
@@ -47,12 +47,16 @@ function Header() {
           >
             {navItems.map((item) => (
               <li key={item.path} className="text-sm">
-                <Link
+                <NavLink
                   to={item.path}
-                  className="hover:text-primary transition-colors"
+                  className={({ isActive }) =>
+                    `hover:text-primary transition-colors ${
+                      isActive ? "text-primary" : "text-foreground"
+                    }`
+                  }
                 >
                   {item.name}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -77,23 +81,25 @@ function Header() {
           <ul className="flex flex-col gap-4 px-4 py-6">
             {navItems.map((item) => (
               <li key={item.path}>
-                <Link
+                <NavLink
                   to={item.path}
-                  className="text-sm font-medium  hover:text-primary block"
+                  className={({ isActive }) =>
+                    `text-sm font-medium block hover:text-primary ${
+                      isActive ? "text-primary" : "text-foreground"
+                    }`
+                  }
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
-                </Link>
+                </NavLink>
               </li>
             ))}
 
-            
             <li className="flex items-center justify-between py-2 border-b border-border mb-2">
-
               <LanguageSwitcher />
             </li>
 
-           <CheckAuth mobile={true} />
+            <CheckAuth mobile={true} />
           </ul>
         </div>
       )}

@@ -48,7 +48,7 @@ export function LanguageSwitcher() {
         setLoading(false);
       }
     } else {
-      localStorage.setItem("guest_lang", newLang);
+      localStorage.setItem("lang", newLang);
     }
   };
 

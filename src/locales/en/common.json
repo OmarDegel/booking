@@ -61,6 +61,7 @@
     },
     "about": {
         "tag": "About Us",
+        "booking": "Booking",
         "trusted_partner": "Your Trusted Partner in",
         "travel_experience": "Travel Experience",
         "description": "Specialized in offering premium travel services, seamless booking, reliable support, and unforgettable journeys. We always strive to deliver excellence and satisfaction for our valued customers.",
@@ -117,6 +118,31 @@
         "logout": "Logout",
         "favourites": "Favourites",
         "other": "Other"
+    },
+    "aside": {
+        "close_filters": "Close Filters",
+        "show_filters": "Show Filters",
+        "filters": "Filters",
+        "search": "Search",
+        "search_placeholder": "Search trips...",
+        "categories": "Categories",
+        "cities": "Cities",
+        "another_options": "Another Options",
+        "offer": "Offer",
+        "featured": "Featured",
+        "new": "New",
+        "recommended": "Recommended",
+        "price_range": "Price Range",
+        "min_price": "Min Price",
+        "max_price": "Max Price",
+        "apply_filters": "Apply Filters"
+    },
+    "pagination": {
+        "prev": "Prev",
+        "next": "Next"
+    },
+    "trip_time": {
+        "start_end_time": "Start Time , End Time",
+        "start_end_date": "Start Date , End Date"
     }
-
 }

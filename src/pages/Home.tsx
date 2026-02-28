@@ -3,15 +3,21 @@ import CategorySlider from "../components/project/CategorySlider";
 import Trips from "../components/project/Trips";
 import HomeForm from "../components/form/HomeForm";
 import { useFetch } from "../hooks/useFetch";
-
+import { useAppSelector } from "../store/hook";
 
 function Home() {
   const { t } = useTranslation();
 
   const settingsString = localStorage.getItem("settings");
   const dataSettings = settingsString ? JSON.parse(settingsString) : null;
-
-  const { data, loading, error } = useFetch("home");
+  const token = useAppSelector((state) => state.user.token);
+  const { data, loading, error } = useFetch("home", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  console.log(data);
   if (error)
     return <div className="text-center py-20 text-red-500">{error}</div>;
 
@@ -30,7 +36,7 @@ function Home() {
           <p className="text-muted-foreground text-lg md:text-xl mb-8">
             {t("common:home.subtitle")}
           </p>
-          <HomeForm t={t} />
+          <HomeForm t={t} cities={data?.cities ?? []} />
         </div>
       </section>
 

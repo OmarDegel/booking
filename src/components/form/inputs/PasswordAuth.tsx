@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Text from "./Text";
+import { useTranslation } from "react-i18next";
+import { Eye, EyeClosed } from "lucide-react";
 
 type PasswordProps = {
   password: string;
@@ -17,6 +19,8 @@ export default function PasswordAuth({
 }: PasswordProps) {
   const [showPasswordF1, setShowPasswordF1] = useState(false);
   const [showPasswordF2, setShowPasswordF2] = useState(false);
+  const { i18n } = useTranslation();
+  const dir = i18n.language === "ar" ? "rtl" : "ltr";
   return (
     <>
       <div className="relative">
@@ -31,35 +35,12 @@ export default function PasswordAuth({
         <button
           type="button"
           onClick={() => setShowPasswordF1(!showPasswordF1)}
-          className="absolute right-3 top-[40px]  flex items-center justify-center text-gray-400 hover:text-gray-600 cursor-pointer"
+          className={`absolute ${dir === "rtl" ? "left-3 " : " right-3 "}}  top-[40px]  flex items-center justify-center text-gray-400 hover:text-gray-600 cursor-pointer`}
         >
           {showPasswordF1 ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-5 w-5"
-            >
-              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
+            <Eye className="h-5 w-5" />
           ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-5 w-5"
-            >
-              <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a21.1 21.1 0 0 1 5.35-5.35M3 3l18 18" />
-            </svg>
+           <EyeClosed className="h-5 w-5" />
           )}
         </button>
       </div>

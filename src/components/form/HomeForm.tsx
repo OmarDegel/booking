@@ -1,7 +1,6 @@
 import { Form } from "react-router-dom";
 
-
-function HomeForm({ t }: any) {
+function HomeForm({ t, cities }: any) {
   return (
     <div className="max-w-4xl mx-auto bg-card/95 backdrop-blur-md rounded-2xl p-4 md:p-6 shadow-xl border border-border">
       <Form
@@ -9,11 +8,17 @@ function HomeForm({ t }: any) {
         method="get"
         action="/trips"
       >
-        <input
+        <select
           className="w-full h-12 rounded-md border border-input bg-background px-4 text-sm focus:outline-none focus:ring-2 focus:ring-ring placeholder:text-muted-foreground text-foreground"
-          placeholder={t("common:home.where")}
-          name="search"
-        />
+          name="city_id[]"
+        >
+          <option value="">{t("common:home.searchByCity")}</option>
+          {cities.map((city: any) => (
+            <option key={city.id} value={city.id}>
+              {city.name}
+            </option>
+          ))}
+        </select>
         <input
           type="number"
           name="min_price"

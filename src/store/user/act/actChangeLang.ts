@@ -31,7 +31,6 @@ const actChangeLang = createAsyncThunk<
 
     return response.data.data?.lang || lang;
   } catch (error: any) {
-    console.error("actChangeLang error:", error);
     if (axios.isAxiosError(error)) {
       return rejectWithValue(error.response?.data.message || error.message);
     } else {

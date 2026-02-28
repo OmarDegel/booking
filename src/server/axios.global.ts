@@ -10,6 +10,10 @@ axios.interceptors.response.use(
     if (error.response?.status === 401) {
       store.dispatch(logout());
       window.location.href = "/login";
+    } else if (error.response?.status === 403) {
+      window.location.replace(
+        `/403?message=${encodeURIComponent(error.response.data.message)}`,
+      );
     }
     return Promise.reject(error);
   },

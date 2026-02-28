@@ -11,19 +11,19 @@ function Details({ trip }: any) {
 
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mb-10">
       <span className="bg-green-700 text-white text-xs font-medium px-3 py-1 rounded-full shadow-sm">
-        {trip.category.name[currentLang]}
+        {trip.category.name}
       </span>
 
       <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-3">
-        {trip.name[currentLang]}
+        {trip.name}
       </h2>
 
       <div className="flex flex-wrap items-center gap-4 text-[15px] text-zinc-700 my-3">
         <span className="flex items-center gap-1">
           <MapPin className="h-4 w-4" />
-          {trip.city.name[currentLang]}, {trip.region.name[currentLang]}
+          {trip.city.name}, {trip.region.name}
         </span>
         <span className="flex items-center gap-1">
           <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
@@ -35,14 +35,8 @@ function Details({ trip }: any) {
 
       <div
         className="text-zinc-600 prose max-w-none"
-        dangerouslySetInnerHTML={{ __html: trip.description[currentLang] }}
+        dangerouslySetInnerHTML={{ __html: trip.description }}
       />
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-        <TripTime trip={trip} />
-      </div>
-
-
     </div>
   );
 }

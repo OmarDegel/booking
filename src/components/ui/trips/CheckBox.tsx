@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router-dom";
 
 function CheckBox({ records, name }: any) {
   const { i18n } = useTranslation();
-  const currentLang = i18n.language === "ar" ? "ar" : "en";
   const [searchParams] = useSearchParams();
   const selectedValues = searchParams.getAll(name);
 
@@ -27,7 +26,7 @@ function CheckBox({ records, name }: any) {
                     peer-checked:bg-primary peer-checked:border-primary transition"
           ></span>
           <span className="text-sm text-foreground">
-            {record.name[currentLang]}
+            {record.name}
           </span>
         </label>
       ))}

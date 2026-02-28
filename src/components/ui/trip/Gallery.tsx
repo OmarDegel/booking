@@ -32,7 +32,7 @@ function Gallery({ trip }: { trip: any }) {
               <motion.img
                 key={activeImage}
                 src={trip.images[activeImage]}
-                alt={trip.name?.en || `Trip image ${activeImage + 1}`}
+                alt={trip.name || `Trip image ${activeImage + 1}`}
                 className="w-full h-full object-cover"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

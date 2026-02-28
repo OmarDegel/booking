@@ -1,12 +1,10 @@
 import { BsWhatsapp } from "react-icons/bs";
 import { Footer, Header } from "../components/common";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hook";
 import { actGetSettings } from "../store/settings/settingsSlice";
 import { actGetWishlist } from "../store/wishlists/wishlistsSlice";
-
-const SETTINGS_TTL = 1000 * 60 * 10; 
 
 function MainLayout() {
   const dispatch = useAppDispatch();
@@ -28,30 +26,42 @@ function MainLayout() {
 
   useEffect(() => {
     const fetchSettings = async () => {
-      const cached = localStorage.getItem("settings");
-      const lastFetch = localStorage.getItem("settings_last_fetch");
-      const now = Date.now();
-
-      if (cached && lastFetch && now - Number(lastFetch) < SETTINGS_TTL) {
-        setLoadingSettings(false);
-        return;
-      }
-
       setLoadingSettings(true);
-
       const res: any = await dispatch(actGetSettings());
-
       if (res.payload?.data) {
         localStorage.setItem("settings", JSON.stringify(res.payload.data));
-        localStorage.setItem("settings_last_fetch", now.toString());
       }
-
       setLoadingSettings(false);
     };
 
     fetchSettings();
   }, [dispatch]);
+  const { pathname } = useLocation();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (settings?.logo) {
+      let link = document.querySelector(
+        "link[rel~='icon']",
+      ) as HTMLLinkElement | null;
+
+      if (!link) {
+        link = document.createElement("link");
+        link.rel = "icon";
+        document.head.appendChild(link);
+      }
+
+      link.href = settings.logo;
+    }
+  }, [settings]);
+  useEffect(() => {
+    if (settings?.site_name) {
+      document.title = settings.site_name;
+    }
+  }, [settings]);
   if (loadingSettings) {
     return (
       <div className="flex items-center justify-center h-screen">

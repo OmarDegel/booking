@@ -1,4 +1,7 @@
+import { useTranslation } from "react-i18next";
+
 function Pagination({ links, meta, goToPage }: any) {
+  const { t } = useTranslation("common");
   const maxButtons = 5;
   const { current_page, last_page } = meta;
 
@@ -22,16 +25,15 @@ function Pagination({ links, meta, goToPage }: any) {
         onClick={() => goToPage(current_page - 1)}
         className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
       >
-        Prev
+        {t("pagination.prev")}
       </button>
 
       {pages.map((page) => (
         <button
           key={page}
           onClick={() => goToPage(page)}
-          className={`px-3 py-1 rounded ${
-            current_page === page ? "bg-primary text-white" : "bg-gray-200"
-          }`}
+          className={`px-3 py-1 rounded ${current_page === page ? "bg-primary text-white" : "bg-gray-200"
+            }`}
         >
           {page}
         </button>
@@ -42,7 +44,7 @@ function Pagination({ links, meta, goToPage }: any) {
         onClick={() => goToPage(current_page + 1)}
         className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
       >
-        Next
+        {t("pagination.next")}
       </button>
     </div>
   );

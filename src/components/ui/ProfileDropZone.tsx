@@ -56,13 +56,7 @@ export function ProfileDropZone({
             <span className="text-gray-500 font-semibold">JG</span>
           )}
         </div>
-        <div className="flex flex-col gap-1 font-semibold">
-          <p>Upload a new avatar</p>
-          <p className="text-xs text-muted-foreground">
-            Please select an image smaller than 10MB
-          </p>
-          {isPending && <p className="text-xs text-blue-500">Uploading...</p>}
-        </div>
+
       </div>
     </div>
   );

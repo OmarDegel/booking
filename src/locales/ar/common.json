@@ -61,6 +61,7 @@
   },
   "about": {
     "tag": "عن الموقع",
+    "booking": "بوكينج",
     "trusted_partner": "شريكك الموثوق فيه",
     "travel_experience": "تجربة السفر",
     "description": "متخصصون في تقديم خدمات سفر متميزة، حجز سلس، دعم موثوق، ورحلات لا تنسى. نحن نسعى دائماً لتقديم التميز والرضا لعملائنا الكرام.",
@@ -119,5 +120,31 @@
   },
   "erorr": {
     "forbidden_title": "غير مصرح لك"
+  },
+  "aside": {
+    "close_filters": "إغلاق الفلاتر",
+    "show_filters": "عرض الفلاتر",
+    "filters": "الفلاتر",
+    "search": "البحث",
+    "search_placeholder": "ابحث عن رحلات...",
+    "categories": "الفئات",
+    "cities": "المدن",
+    "another_options": "خيارات أخرى",
+    "offer": "عرض",
+    "featured": "مميز",
+    "new": "جديد",
+    "recommended": "موصى به",
+    "price_range": "نطاق السعر",
+    "min_price": "أقل سعر",
+    "max_price": "أعلى سعر",
+    "apply_filters": "تطبيق الفلاتر"
+  },
+  "pagination": {
+    "prev": "السابق",
+    "next": "التالي"
+  },
+  "trip_time": {
+    "start_end_time": "وقت البدء ، وقت الانتهاء",
+    "start_end_date": "تاريخ البدء ، تاريخ الانتهاء"
   }
 }

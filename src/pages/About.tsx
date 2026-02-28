@@ -3,28 +3,20 @@ import { CheckIcon } from "lucide-react";
 
 function About() {
   const { t } = useTranslation("common");
+  const settings = JSON.parse(localStorage.getItem("settings") || "{}");
   return (
     <div className="bg-secondary py-20">
       <div className="container mx-auto px-4 lg:px-20">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="flex flex-col items-center text-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
+            <img
+              src={settings?.logo}
+              alt="Logo"
               className="h-[340px] w-[340px] text-primary"
-            >
-              <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
-            </svg>
-
+            />
             <div className="mt-6">
-
               <span className="block text-3xl font-extrabold text-primary mt-1">
-                Booking
+                {settings?.site_title}
               </span>
             </div>
           </div>
@@ -34,11 +26,13 @@ function About() {
               {t("about.tag")}
             </span>
 
-            <h3 className="text-2xl font-bold text-primary mb-2">Booking</h3>
+            <h3 className="text-2xl font-bold text-primary mb-2">{t("about.booking")}</h3>
 
             <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
               {t("about.trusted_partner")} <br />
-              <span className="text-primary">{t("about.travel_experience")}</span>
+              <span className="text-primary">
+                {t("about.travel_experience")}
+              </span>
             </h2>
 
             <p className="text-gray-600 text-lg leading-relaxed mb-10 max-w-xl text-justify">
@@ -82,4 +76,3 @@ function About() {
 }
 
 export default About;
-

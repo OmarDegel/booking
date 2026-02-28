@@ -49,7 +49,7 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
                   <div className="relative aspect-square overflow-hidden rounded-2xl transition-all duration-300 ease-in-out">
                     <img
                       src={category.image}
-                      alt={category.name[currentLang]}
+                      alt={category.name}
                       className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                       loading="lazy"
                     />
@@ -57,7 +57,7 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ categories }) => {
                   </div>
                   <div className="mt-2 text-center">
                     <span className="block text-sm sm:text-base font-semibold truncate px-1 transition-colors duration-300 text-primary-600">
-                      {category.name[currentLang]}
+                      {category.name}
                     </span>
                   </div>
                 </Link>

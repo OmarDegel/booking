@@ -7,15 +7,28 @@ import { useTranslation } from "react-i18next";
 
 function Contact() {
   const { t } = useTranslation("common");
-  const [socialIcons] = useState([
-    "facebook",
-    "twitter",
-    "instagram",
-  ]);
+  const data = JSON.parse(localStorage.getItem("settings") || "{}");
+  const socialLinks = {
+    facebook: data.facebook || "",
+    instagram: data.instagram || "",
+    twitter: data.twitter || "",
+  };
+
+  const iconMap = {
+    facebook: (
+      <FaFacebookF className="group-hover:text-primary transition-all duration-200" />
+    ),
+    twitter: (
+      <FaTwitter className="group-hover:text-primary transition-all duration-200" />
+    ),
+    instagram: (
+      <FaInstagram className="group-hover:text-primary transition-all duration-200" />
+    ),
+  };
 
   const [phone, setPhone] = useState("");
   const [content, setContent] = useState("");
-  const [email, setEmail] = useState("");
+  const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,13 +41,13 @@ function Contact() {
       toast.error(t("contact.errors.message_required"));
       return;
     }
-    if (!email) {
-      toast.error(t("contact.errors.email_required"));
+    if (!title) {
+      toast.error(t("contact.errors.title_required"));
       return;
     }
     setLoading(true);
     axios
-      .post("contact", { phone, email })
+      .post("contact", { phone, content, title })
       .then((res) => {
         if (res.data.success) {
           toast.success(res.data.message);
@@ -49,7 +62,7 @@ function Contact() {
         setLoading(false);
         setPhone("");
         setContent("");
-        setEmail("");
+        setTitle("");
       });
   };
   return (
@@ -65,19 +78,18 @@ function Contact() {
           </p>
 
           <ul className="flex gap-6 justify-center mb-14">
-            {socialIcons.map((item) => (
-              <li key={item}>
-                <Link to={item} className="group">
+            {Object.keys(socialLinks).map((key) => (
+              <li key={key}>
+                <a
+                  className="group"
+                  href={socialLinks[key as keyof typeof socialLinks]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <div className="w-[70px] h-[70px] element-center border border-primary hover:bg-accent rounded-full">
-                    {item === "facebook" ? (
-                      <FaFacebookF className="text-[22px] group-hover:text-primary transition-all duration-200" />
-                    ) : item === "twitter" ? (
-                      <FaTwitter className="text-[22px] group-hover:text-primary transition-all duration-200" />
-                    ) : (
-                      <FaInstagram className="text-[22px] group-hover:text-primary transition-all duration-200" />
-                    )}
+                    {iconMap[key as keyof typeof iconMap]}
                   </div>
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
@@ -106,14 +118,14 @@ function Contact() {
 
               <div>
                 <label className="block text-base font-semibold text-left mb-2">
-                  {t("contact.email_label")}
+                  {t("contact.title_label")}
                 </label>
                 <input
-                  type="email"
-                  value={email}
-                  placeholder={t("contact.email_placeholder")}
+                  type="text"
+                  value={title}
+                  placeholder={t("contact.title_placeholder")}
                   className="w-full h-[64px] rounded-2xl border border-input bg-background px-6 text-base focus:outline-none focus:ring-2 focus:ring-primary"
-                  onChange={(val) => setEmail(val.target.value)}
+                  onChange={(val) => setTitle(val.target.value)}
                 />
               </div>
 
@@ -147,4 +159,3 @@ function Contact() {
 }
 
 export default Contact;
-
