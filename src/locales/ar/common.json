@@ -15,6 +15,7 @@
   "login": "تسجيل دخول",
   "signup": "إنشاء حساب",
   "home": {
+    "searchByCity": "ابحث عن رحلة",
     "titleLine1": "إكتشف وجهتك",
     "titleLine2": "القادمة",
     "subtitle": "استكشف أفضل الوجهات في العالم معنا.",
@@ -40,7 +41,7 @@
     "about_heading": "عن الرحلة",
     "per_person": "لكل شخص",
     "group_size": "حجم المجموعة",
-    "age_range": "أقل عمر - أكبر عمر",
+    "age_range": "العمر",
     "type": "النوع",
     "book_now": "احجز الآن",
     "share": "مشاركة",
@@ -74,6 +75,8 @@
     "subtitle": "لديك أسئلة أو تطلب مساعدة؟ نحن هنا للمساعدة! تواصل معنا من خلال أي من الطرق التالية:",
     "phone_label": "رقم الهاتف",
     "phone_placeholder": "أدخل رقم هاتفك",
+    "title_label": "عنوان الرسالة",
+    "title_placeholder": "ادخل عنوان الرسالة",
     "email_label": "البريد الإلكتروني",
     "email_placeholder": "أدخل بريدك الإلكتروني",
     "message_label": "الرسالة",
@@ -85,6 +88,7 @@
       "email_required": "البريد الإلكتروني مطلوب",
       "message_required": "الرسالة مطلوبة"
     }
+    
   },
   "error": {
     "404_title": "خطأ 404",
@@ -98,6 +102,8 @@
     "browse_trips": "تصفح مجموعتنا الكاملة من تجارب السفر المنسقة."
   },
   "profile": {
+    "no_favourites": "لا يوجد مفضلات",
+    "explore": "استكشف",
     "title": "الملف الشخصي",
     "my_account": "حسابي",
     "my_favourites": "المفضلات",
@@ -137,7 +143,7 @@
     "price_range": "نطاق السعر",
     "min_price": "أقل سعر",
     "max_price": "أعلى سعر",
-    "apply_filters": "تطبيق الفلاتر"
+    "apply_filters": "بحث"
   },
   "pagination": {
     "prev": "السابق",
@@ -146,5 +152,14 @@
   "trip_time": {
     "start_end_time": "وقت البدء ، وقت الانتهاء",
     "start_end_date": "تاريخ البدء ، تاريخ الانتهاء"
+  },
+  "wishlist": {
+    "add": "اضافة للمفضلة",
+    "remove": "حذف من المفضلة"
+  },
+  "review":{
+    "loading":"جاري التحميل...",
+    "submit":"تقديم",
+    "write_review":"كتابة مراجعة"
   }
 }

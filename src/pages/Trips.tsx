@@ -1,18 +1,22 @@
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
+import { useAppSelector } from "../store/hook";
 import type { TTrip } from "../types/Trips.Type";
 import TripCard from "../components/ui/TripCard";
 import Pagination from "../components/ui/Pagination";
 import Aside from "../components/ui/trips/Aside";
 
 function Trips() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
 
   const query = searchParams.toString();
   const url = `/trips?${query}`;
+
+  const token = useAppSelector((state) => state.user.token);
+  const lang = i18n.language;
 
   const { data, loading } = useFetch<{
     trips: TTrip[];
@@ -20,7 +24,13 @@ function Trips() {
     links: any;
     categories: any[];
     cities: any[];
-  }>(url);
+  }>(`${url}${url.includes("?") ? "&" : "?"}lang=${lang}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token ? `Bearer ${token}` : undefined,
+      lang,
+    },
+  });
 
   const goToPage = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());

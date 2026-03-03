@@ -26,7 +26,7 @@ function About() {
               {t("about.tag")}
             </span>
 
-            <h3 className="text-2xl font-bold text-primary mb-2">{t("about.booking")}</h3>
+            <h3 className="text-2xl font-bold text-primary mb-2">{settings.site_title}</h3>
 
             <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
               {t("about.trusted_partner")} <br />

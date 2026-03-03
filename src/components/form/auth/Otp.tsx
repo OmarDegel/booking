@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Text from "../inputs/Text";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 function Otp({
   otp,
@@ -10,15 +11,15 @@ function Otp({
   btnColor,
   email,
   setTempToken,
-  stepValue
+  stepValue,
 }: {
   otp: string;
   setOtp: (val: string) => void;
   setStep: any;
   btnColor: string;
   email: string;
-  setTempToken: any
-  stepValue: string
+  setTempToken: any;
+  stepValue: string;
 }) {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<any>({});
@@ -79,16 +80,16 @@ function Otp({
     handleResendCode();
     setTimer(60);
   };
-
+  const { t } = useTranslation();
   return (
     <form onSubmit={handleVerifyOtp} className="space-y-4">
       <Text
-        label="Verification Code"
+        label={t("auth:otp")}
         name="otp"
         value={otp}
         onChange={(val) => setOtp(val)}
         error={errors.code?.[0]}
-        placeholder="Enter 6-digit code"
+        placeholder={t("auth:placeholder:otp")}
       />
 
       <button
@@ -96,7 +97,7 @@ function Otp({
         disabled={loading}
         className={`w-full h-11 ${btnColor} text-white rounded-md font-semibold cursor-pointer hover:opacity-80 transition`}
       >
-        {loading ? "Verifying..." : "Verify OTP"}
+        {loading ? t("auth:verifying") : t("auth:verify")}
       </button>
 
       <button
@@ -104,7 +105,7 @@ function Otp({
         onClick={() => setStep("EMAIL")}
         className="w-full text-center text-sm text-primary hover:text-primary/50 mt-2  "
       >
-        Change Email
+        {t("auth:change_email")}
       </button>
 
       <button
@@ -117,7 +118,7 @@ function Otp({
             : "text-primary hover:text-primary"
         }`}
       >
-        Resend Code {timer > 0 && `(${timer}s)`}
+        {t("auth:resend_code")} {timer > 0 && `(${timer}s)`}
       </button>
     </form>
   );

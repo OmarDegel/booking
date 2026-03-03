@@ -1,12 +1,23 @@
+import { useTranslation } from "react-i18next";
 import { useFetch } from "../hooks/useFetch";
+import { useAppSelector } from "../store/hook";
 import Gallery from "../components/ui/trip/Gallery";
 import Aside from "../components/ui/trip/Aside";
 import Details from "../components/ui/trip/Details";
-import  Reviews from "../components/ui/trip/Reviews";
+import Reviews from "../components/ui/trip/Reviews";
 
 function TripDetails() {
+  const { i18n } = useTranslation();
+  const token = useAppSelector((state) => state.user.token);
+  const lang = i18n.language;
   const trip_link = window.location.href.split("/").pop();
-  const { data, loading, error } = useFetch("trips/" + trip_link);
+  const { data, loading, error } = useFetch(`trips/${trip_link}?lang=${lang}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token ? `Bearer ${token}` : undefined,
+      lang,
+    },
+  });
   if (error) {
     throw new Response(error, { status: 404 });
   }

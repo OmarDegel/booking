@@ -12,10 +12,12 @@ function Favourites() {
   const { t, i18n } = useTranslation("common");
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.user.token);
-  const { data, loading } = useFetch("wishlist", {
+  const lang = i18n.language;
+  const { data, loading } = useFetch(`wishlist?lang=${lang}`, {
     headers: {
-      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
+      Authorization: token ? `Bearer ${token}` : undefined,
+      lang,
     },
   });
   const [wishlists, setWishlists] = useState<any[]>([]);

@@ -24,7 +24,7 @@ function TripCard({ trip }: any) {
         <div className="p-5">
           <div className="flex items-center gap-1 text-sm text-muted-foreground mb-2">
             <MapPin className="h-3.5 w-3.5" />
-            {trip.city.name} , {trip.region.name}
+            {trip.city.name} {trip.region && `, ${trip.region.name}`}
           </div>
 
           <h3 className="font-semibold text-lg text-foreground mb-1.5 group-hover:text-primary transition-colors">
@@ -44,22 +44,16 @@ function TripCard({ trip }: any) {
                 ({trip.reviews} {t("trip.reviews")})
               </span>
             </span>
-
-            <span className="flex items-center gap-1">
-              <Clock className="h-3.5 w-3.5" />
-              {trip.duration}
-            </span>
           </div>
-
           <div className="flex items-end justify-between">
             <div>
               <span className="text-2xl font-bold text-green-600">
-                {settings.currency} {trip.price}
+                 {settings.currency.toString()}{trip.price} 
               </span>
-
+              
               {trip.is_offer && (
                 <span className="text-sm text-muted-foreground line-through ms-2">
-                  ${trip.offer_price}
+                  {trip.offer_price}
                 </span>
               )}
 

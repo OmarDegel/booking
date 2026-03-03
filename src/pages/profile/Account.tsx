@@ -9,10 +9,15 @@ import { setUser } from "../../store/user/userSlice";
 import { useFetch } from "../../hooks/useFetch";
 
 function Account() {
-  const { t } = useTranslation("common");
+  const { t, i18n } = useTranslation("common");
   const token = useAppSelector((state) => state.user.token);
-  const { data, loading, error } = useFetch("profile", {
-    headers: { Authorization: `Bearer ${token}` },
+  const lang = i18n.language;
+  const { data, loading, error } = useFetch(`profile?lang=${lang}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token ? `Bearer ${token}` : undefined,
+      lang,
+    },
   });
   const dispatch = useAppDispatch();
   useEffect(() => {

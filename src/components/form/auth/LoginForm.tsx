@@ -6,9 +6,10 @@ import axios from "axios";
 import { useAppDispatch } from "../../../store/hook";
 import { setAuth } from "../../../store/user/userSlice";
 import Text from "../inputs/Text.tsx";
- 
+import { useTranslation } from "react-i18next";
 
 function LoginForm() {
+  const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -47,25 +48,28 @@ function LoginForm() {
   return (
     <form method="post" className="space-y-5" onSubmit={handleLogin}>
       <Text
-        label="Email Address"
+        label={t("auth:email")}
         name="email"
         type="email"
+        placeholder={t("auth:placeholder.email")}
         value={email}
         onChange={(val) => setEmail(val)}
         error={errors.email?.[0]}
       />
 
       <Password
+        label={t("auth:password")}
         error={errors?.password?.[0]}
         password={password}
         setPassword={setPassword}
+        placeholder={t("auth:placeholder.password")}
       />
 
       <button
         className="w-full h-12 bg-primary text-white rounded-md font-semibold hover:bg-primary/90"
         disabled={isSubmitting}
       >
-        {isSubmitting ? "Signing in..." : "Sign in"}
+        {isSubmitting ? t("auth:loading") : t("auth:login")}
       </button>
     </form>
   );

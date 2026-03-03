@@ -9,46 +9,44 @@ export function LanguageSwitcher() {
   const { i18n } = useTranslation();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
+
   const [loading, setLoading] = useState(false);
-  const settings = JSON.parse(localStorage.getItem("settings") || "{}");
-
-  const guestLang = localStorage.getItem("guest_lang");
-  const initialLang = user?.lang || guestLang || settings.site_lang || "en";
-
-  const [currentLang, setCurrentLang] = useState(initialLang);
 
   useEffect(() => {
-    if (user?.lang && user.lang !== currentLang) {
-      setCurrentLang(user.lang);
+    if (user?.lang && user.lang !== i18n.language) {
+      i18n.changeLanguage(user.lang).catch((err: any) => {
+        console.warn("Failed to sync user language to i18next", err);
+      });
     }
-  }, [user?.lang, currentLang]);
+  }, [user?.lang, i18n]);
 
   useEffect(() => {
-    if (i18n.language !== currentLang) {
-      i18n.changeLanguage(currentLang);
+    const currentLang = i18n.language;
+    const isRtl = currentLang === "ar";
+
+    if (document.documentElement.dir !== (isRtl ? "rtl" : "ltr")) {
+      document.documentElement.dir = isRtl ? "rtl" : "ltr";
     }
-  }, [currentLang, i18n]);
-
-  useEffect(() => {
-    document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
     document.documentElement.lang = currentLang;
-  }, [currentLang]);
+
+    localStorage.setItem("lang", currentLang);
+    localStorage.setItem("rtl", isRtl ? "1" : "0");
+  }, [i18n.language]);
 
   const toggleLanguage = async () => {
-    const newLang = currentLang === "en" ? "ar" : "en";
-    setCurrentLang(newLang);
+    const newLang = i18n.language === "en" ? "ar" : "en";
 
-    if (user) {
-      try {
-        setLoading(true);
+    try {
+      setLoading(true);
+      await i18n.changeLanguage(newLang);
+
+      if (user) {
         await dispatch(actChangeLang(newLang)).unwrap();
-      } catch (err: any) {
-        toast.error(err.message || "Something went wrong");
-      } finally {
-        setLoading(false);
       }
-    } else {
-      localStorage.setItem("lang", newLang);
+    } catch (err: any) {
+      toast.error(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,7 +55,7 @@ export function LanguageSwitcher() {
       onClick={toggleLanguage}
       className="p-2 hover:bg-muted rounded-full transition-colors flex items-center gap-2 text-foreground"
       aria-label="Switch Language"
-      title={currentLang === "en" ? "Switch to Arabic" : "Switch to English"}
+      title={i18n.language === "en" ? "Switch to Arabic" : "Switch to English"}
       disabled={loading}
     >
       {loading ? (
@@ -66,7 +64,7 @@ export function LanguageSwitcher() {
         <>
           <Languages className="w-5 h-5" />
           <span className="text-sm font-medium hidden sm:block">
-            {currentLang === "en" ? "العربية" : "English"}
+            {i18n.language === "en" ? "العربية" : "English"}
           </span>
         </>
       )}

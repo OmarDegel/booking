@@ -4,6 +4,7 @@ import {
   actLikeToggle,
 } from "../../store/wishlists/wishlistsSlice";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 function WishlistButton({ tripId }: any) {
   const dispatch = useAppDispatch();
@@ -14,7 +15,7 @@ function WishlistButton({ tripId }: any) {
     if (loading === "pending") return;
     dispatch(actLikeToggle(tripId));
   };
-
+  const {t}=useTranslation("common")
   return (
     <button
       onClick={handleClick}
@@ -28,7 +29,7 @@ function WishlistButton({ tripId }: any) {
         }`}
         fill={isLiked ? "red" : "none"}
       />
-      {isLiked ? "Liked" : "Add to wishlist"}
+      {isLiked ? t("wishlist.remove") : t("wishlist.add")}
     </button>
   );
 }

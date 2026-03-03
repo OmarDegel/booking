@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../../../store/hook";
 import { setAuth } from "../../../store/user/userSlice";
+import { useTranslation } from "react-i18next";
 
 function Register({
   firstName,
@@ -60,30 +61,34 @@ function Register({
       setLoading(false);
     }
   };
+  const { t } = useTranslation();
   return (
     <form onSubmit={handleRegister} className="space-y-4">
       <div className="grid grid-cols-2 gap-3">
         <Text
-          label="First Name"
+          label={t("auth:first_name")}
           name="first_name"
           value={firstName}
           onChange={(val) => setFirstName(val)}
           error={errors.first_name?.[0]}
+          placeholder={t("auth:placeholder:first_name")}
         />
         <Text
-          label="Last Name"
+          label={t("auth:last_name")}
           name="last_name"
           value={lastName}
           onChange={(val) => setLastName(val)}
           error={errors.last_name?.[0]}
+          placeholder={t("auth:placeholder:last_name")}
         />
       </div>
       <Text
-        label="Phone"
+        label={t("auth:phone")}
         name="phone"
         value={phone}
         onChange={(val) => setPhone(val)}
         error={errors.phone?.[0]}
+        placeholder={t("auth:placeholder:phone")}
       />
       <PasswordAuth
         password={password}
@@ -100,7 +105,7 @@ function Register({
         disabled={loading}
         className="w-full h-11 bg-gradient-cta text-white rounded-md font-semibold cursor-pointer hover:opacity-80 transition"
       >
-        {loading ? "Registering..." : "Complete Registration"}
+        {loading ? t("auth:loading") : t("auth:register")}
       </button>
     </form>
   );

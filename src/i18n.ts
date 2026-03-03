@@ -18,9 +18,11 @@ export const resources = {
   },
 } as const;
 
+const savedLang = localStorage.getItem("lang") || "en";
+
 i18next.use(initReactI18next).init({
   resources,
-  lng: "en",
+  lng: savedLang,
   fallbackLng: "en",
   ns: ["common", "auth"],
   defaultNS,

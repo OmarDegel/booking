@@ -1,16 +1,25 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 export function useFetch<T = any>(url: string, headers?: any) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     let isMounted = true;
     setLoading(true);
+
+    // Merge provided headers with current language
+    const requestHeaders = {
+      ...(headers?.headers || {}),
+      lang: i18n.language,
+    };
+
     axios
-      .get(url, headers)
+      .get(url, { ...headers, headers: requestHeaders })
       .then((res) => {
         if (!isMounted) return;
         if (res.data?.success === true) {
@@ -33,7 +42,7 @@ export function useFetch<T = any>(url: string, headers?: any) {
     return () => {
       isMounted = false;
     };
-  }, [url]);
+  }, [url, i18n.language]);
 
   return { data, loading, error };
 }

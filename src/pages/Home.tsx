@@ -6,15 +6,17 @@ import { useFetch } from "../hooks/useFetch";
 import { useAppSelector } from "../store/hook";
 
 function Home() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const settingsString = localStorage.getItem("settings");
   const dataSettings = settingsString ? JSON.parse(settingsString) : null;
   const token = useAppSelector((state) => state.user.token);
-  const { data, loading, error } = useFetch("home", {
+  const lang = i18n.language;
+  const { data, loading, error } = useFetch(`home?lang=${lang}`, {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: token ? `Bearer ${token}` : undefined,
+      lang: lang,
     },
   });
   console.log(data);
@@ -33,9 +35,7 @@ function Home() {
             {t("common:home.titleLine1")} <br />
             <span className="text-primary">{t("common:home.titleLine2")}</span>
           </h1>
-          <p className="text-muted-foreground text-lg md:text-xl mb-8">
-            {t("common:home.subtitle")}
-          </p>
+
           <HomeForm t={t} cities={data?.cities ?? []} />
         </div>
       </section>

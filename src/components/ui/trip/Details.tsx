@@ -23,7 +23,7 @@ function Details({ trip }: any) {
       <div className="flex flex-wrap items-center gap-4 text-[15px] text-zinc-700 my-3">
         <span className="flex items-center gap-1">
           <MapPin className="h-4 w-4" />
-          {trip.city.name}, {trip.region.name}
+          {trip.city.name} {trip.region && `, ${trip.region.name}`}
         </span>
         <span className="flex items-center gap-1">
           <Star className="h-4 w-4 fill-amber-400 text-amber-400" />

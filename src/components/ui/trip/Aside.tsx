@@ -63,7 +63,6 @@ function Aside({ trip }: any) {
             </div>
           </div>
 
-          {/* Type */}
           <div className="bg-secondary rounded-2xl flex items-center gap-3 p-3 shadow-sm">
             <Calendar className="h-5 w-5 flex-shrink-0" />
             <div className="flex flex-col">
@@ -82,7 +81,7 @@ function Aside({ trip }: any) {
                 <Timer className="h-5 w-5 flex-shrink-0 " />
                 <div className="flex flex-col">
                   <p className="text-gray-400 text-xs font-medium">
-                    {t("trip.start_end_time")}
+                    {t("trip_time.start_end_time")}
                   </p>
                   <p className="text-sm font-semibold text-foreground">
                     {trip.start_time} - {trip.end_time}
@@ -94,7 +93,7 @@ function Aside({ trip }: any) {
                 <Calendar className="h-5 w-5 flex-shrink-0 " />
                 <div className="flex flex-col">
                   <p className="text-gray-400 text-xs font-medium">
-                    {t("trip.start_end_date")}
+                    {t("trip_time.start_end_date")}
                   </p>
                   <p className="text-sm font-semibold text-foreground">
                     {trip.start_date} - {trip.end_date}

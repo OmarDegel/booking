@@ -3,6 +3,7 @@ import { Star } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useAppSelector } from "../../../store/hook";
+import { useTranslation } from "react-i18next";
 
 function CreateReview({ reviews, setReviews, trip_id }: any) {
   const [rate, setRating] = useState(0);
@@ -10,6 +11,7 @@ function CreateReview({ reviews, setReviews, trip_id }: any) {
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<{ rate?: string; comment?: string }>({});
+  const {t}=useTranslation("common");
   const token=useAppSelector(state=>state.user.token)
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,7 +77,7 @@ function CreateReview({ reviews, setReviews, trip_id }: any) {
             <textarea
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              placeholder="Write your review..."
+              placeholder={t("review.write_review")}
               className="w-full h-24 rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 placeholder:text-gray-400 text-gray-800 resize-none"
             />
             {errors.comment && (
@@ -88,7 +90,7 @@ function CreateReview({ reviews, setReviews, trip_id }: any) {
             type="submit"
             className="w-full h-12 rounded-xl bg-primary text-white font-semibold text-sm shadow hover:bg-primary/90 transition-colors"
           >
-            {loading ? "Submitting..." : "Submit Review"}
+            {loading ? t("review.loading") : t("review.submit")}
           </button>
         </div>
       </form>
